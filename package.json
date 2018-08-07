@@ -1,0 +1,28 @@
+{
+  "name": "labanimal",
+  "version": "1.0.0",
+  "description": "Even now, the management of experimental animals in lab is still primitive and inefficient in ways from paper recording to Excel forms. These methods are hard to maintain and in short of sustainability. Different recording patterns from different researchers also make the transition painfully.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziqingW/LabAnimal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ziqingW/LabAnimal/issues"
+  },
+  "homepage": "https://github.com/ziqingW/LabAnimal#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "pg-promise": "^8.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
