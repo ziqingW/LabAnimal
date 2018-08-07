@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getUser } from '../actions.js'
 
-export class Welcome extends React.component {
+export class Welcome extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -136,11 +136,12 @@ export class Welcome extends React.component {
   loginForm = () => {
       return (
         <form onSubmit={this.loginSubmit}>
+          <h3>LOGIN IN</h3>
           <div>
             <input type="text" value={this.state.username} name="username" placeholder="USERNAME" onChange={this.usernameInput} />
             <input type="password" value={this.state.password} name="password" placeholder="PASSWORD" onChange={this.passwordInput} />
           </div>
-          <h3>{this.state.message}</h3>
+          <h4>{this.state.message}</h4>
           <div>
             <button onClick={this.showSignForm}>NEW USER</button>
             <button type="submit">OK</button>
@@ -152,12 +153,13 @@ export class Welcome extends React.component {
   signupForm = () => {
     return (
       <form onSubmit={this.signSubmit}>
+        <h3>SIGN UP</h3>
         <div>
           <input type="text" value={this.state.username} name="username" placeholder="USERNAME" onChange={this.usernameInput} />
           <input type="password" value={this.state.password} name="password" placeholder="PASSWORD" onChange={this.passwordInput} />
           <input type="password" value={this.state.rePassword} name="rePassword" placeholder="RE-ENTER PASSWORD" onChange={this.rePasswordInput} />
         </div>
-        <h3>{this.state.message}</h3>
+        <h4>{this.state.message}</h4>
         <div>
           <button onClick={this.showLoginForm}>RETURNED USER</button>
           <button type="submit">SUBMIT</button>

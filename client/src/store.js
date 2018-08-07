@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import labAnimal from './reducers';
+import labAnimal from './reducer.js';
 
 var store = createStore(labAnimal);
 export default store;
