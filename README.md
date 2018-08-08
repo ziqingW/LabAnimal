@@ -7,6 +7,7 @@ However, with the help of **LAMP**, the management of lab animals can be easy, f
 - [X] Create User Login/Sign system
 - [ ] A clean and powerful UI
 - [ ] User can add, delete or edit animal in cages
+- [ ] Implement search function
 - [ ] Support records for individual animal's id, DOB, genotype, gender etc.
 
 ## Stretch Features
@@ -26,3 +27,4 @@ ___
 - 08/07/2018
   - created user login/sign system  
   - created database
+- 08/08/2018, created template for UI
