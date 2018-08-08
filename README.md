@@ -28,3 +28,4 @@ ___
   - created user login/sign system  
   - created database
 - 08/08/2018, created template for UI
+![alt text](readmePics/summary.png "Summary")
