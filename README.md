@@ -28,4 +28,5 @@ ___
   - created user login/sign system  
   - created database
 - 08/08/2018, created template for UI
-![alt text](readmePics/summary.png =100x40 "Summary")
+<img src="readmePics/summary.png" alt="Summary" width="200px"/>
+
