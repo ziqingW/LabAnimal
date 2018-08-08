@@ -41,7 +41,8 @@ export class Welcome extends React.Component {
     })
   }
 
-  showSignForm = () => {
+  showSignForm = e => {
+    e.preventDefault()
     this.setState({
       signup: true,
       username : "",
@@ -50,7 +51,8 @@ export class Welcome extends React.Component {
     })
   }
 
-  showLoginForm = () => {
+  showLoginForm = e => {
+    e.preventDefault()
     this.setState({
       signup: false,
       username : "",
@@ -105,7 +107,7 @@ export class Welcome extends React.Component {
       })
     } else if (password.length < 8){
       this.setState({
-        message : "Password must be longer than 8",
+        message : "Password must be not shorter than 8",
         password : "",
         rePassword : ""
       })

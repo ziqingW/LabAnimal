@@ -10,7 +10,7 @@ let db_config = process.env.DATABASE_URL || {
     database: "labAnimal"
 };
 const db = pgp(db_config);
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: false}));
@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, './client/build')));
 app.post('/login', function (req, resp, next) {
   let username = req.body.username
   let password = req.body.password
-  let q = 'SELECT * FROM users WHERE username=${username}'
+  let q = 'SELECT * FROM users WHERE name=${username}'
   db.query(q, {username: username})
     .then( results => {
       if (results.length > 0) {
@@ -39,7 +39,7 @@ app.post('/login', function (req, resp, next) {
 app.post('/signup', function (req, resp, next) {
   let username = req.body.username
   let password = req.body.password
-  let q = 'SELECT * FROM users WHERE username=${username}'
+  let q = 'SELECT * FROM users WHERE name=${username}'
   db.query(q, {username: username})
     .then( results => {
       if (results.length > 0) {

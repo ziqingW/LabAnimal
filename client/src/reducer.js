@@ -13,9 +13,9 @@ export function labAnimal (state, action) {
   switch (action.type) {
     case 'GET_USER':
       new_state = clone(state)
-      // data = JSON.parse(action.data)
-      new_state.username = action.data.username
-      new_state.userId = action.data.userId
+      let data = JSON.parse(action.data)
+      new_state.username = data.username
+      new_state.userId = data.userId
       return new_state
     default:
       return state
