@@ -4,7 +4,7 @@ Even now, the management of experimental animals in lab is still primitive and i
 However, with the help of **LAMP**, the management of lab animals can be easy, fast and efficient. The versatility of **LAMP** make the research project progress stably and seamlessly.
 
 ## MVP
-- [ ] Create User Login/Sign system
+- [X] Create User Login/Sign system
 - [ ] User can add, delete or edit animal in cages
 - [ ] Support records for individual animal's id, DOB, genotype, gender etc.
 
@@ -21,4 +21,7 @@ ___
 - PostgreSQL
 
 ### Project Logs
-- 08/06/2018, create repository and README
+- 08/06/2018, created repository and README
+- 08/07/2018
+  - created user login/sign system  
+  - created database
