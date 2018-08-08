@@ -5,6 +5,7 @@ However, with the help of **LAMP**, the management of lab animals can be easy, f
 
 ## MVP
 - [X] Create User Login/Sign system
+- [ ] A clean and powerful UI
 - [ ] User can add, delete or edit animal in cages
 - [ ] Support records for individual animal's id, DOB, genotype, gender etc.
 
