@@ -27,6 +27,8 @@ ___
 - 08/07/2018
   - created user login/sign system  
   - created database
-- 08/08/2018, created template for UI
-  - Summary <img src="readmePics/summary.png" alt="Summary" width="200px"/>
+- 08/08/2018, created template for UI  
+Summary <img src="readmePics/summary.png" alt="Summary" width="200px"/>&nbsp;Search <img src="readmePics/SearchResult.png" alt="Search" width="200px"/>&nbsp;Project <img src="readmePics/Project.png" alt="Project" width="200px"/>  
+New Project <img src="readmePics/newProject.png" alt="NewProject" width="200px"/>&nbsp;New Cage <img src="readmePics/NewCage.png" alt="newCage" width="200px"/>&nbsp;Cage <img src="readmePics/CageAnimalPanel.png" alt="Cage" width="200px"/>
+
 
