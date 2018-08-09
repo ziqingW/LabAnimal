@@ -3,6 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getUser } from '../actions.js'
+import {FormGroup, ControlLabel, FormControl, HelpBlock, Button} from 'react-bootstrap'
 
 export class Welcome extends React.Component {
   constructor (props) {
@@ -60,7 +61,7 @@ export class Welcome extends React.Component {
       rePassword : ""
     })
   }
-
+  
   loginSubmit = e => {
     e.preventDefault()
     this.setState({
@@ -107,7 +108,7 @@ export class Welcome extends React.Component {
       })
     } else if (password.length < 8){
       this.setState({
-        message : "Password must be not shorter than 8",
+        message : "Password can't be shorter than 8",
         password : "",
         rePassword : ""
       })
@@ -139,14 +140,18 @@ export class Welcome extends React.Component {
       return (
         <form onSubmit={this.loginSubmit}>
           <h3>LOGIN IN</h3>
+          <FormGroup controlId="formLoginUsername">
+            <ControlLabel>USERNAME</ControlLabel>
+            <FormControl type="text" value={this.state.username} placeholder="Enter username" onChange={this.usernameInput} />
+          </FormGroup>
+          <FormGroup controlId="formLoginPassword">
+            <ControlLabel>PASSWORD</ControlLabel>
+            <FormControl type="password" value={this.state.password} placeholder="Enter password" onChange={this.passwordInput} />
+          </FormGroup>
+          <HelpBlock>{this.state.message}</HelpBlock>
           <div>
-            <input type="text" value={this.state.username} name="username" placeholder="USERNAME" onChange={this.usernameInput} />
-            <input type="password" value={this.state.password} name="password" placeholder="PASSWORD" onChange={this.passwordInput} />
-          </div>
-          <h4>{this.state.message}</h4>
-          <div>
-            <button onClick={this.showSignForm}>NEW USER</button>
-            <button type="submit">OK</button>
+            <Button onClick={this.showSignForm}>NEW USER</Button>
+            <Button type="submit">OK</Button>
           </div>
         </form>
       )
@@ -156,20 +161,27 @@ export class Welcome extends React.Component {
     return (
       <form onSubmit={this.signSubmit}>
         <h3>SIGN UP</h3>
+        <FormGroup controlId="formSignUsername">
+          <ControlLabel>USERNAME</ControlLabel>
+          <FormControl type="text" value={this.state.username} placeholder="Enter username" onChange={this.usernameInput} />
+        </FormGroup>
+        <FormGroup controlId="formSignPassword">
+          <ControlLabel>PASSWORD</ControlLabel>
+          <FormControl type="password" value={this.state.password} placeholder="Enter password" onChange={this.passwordInput} />
+        </FormGroup>
+        <FormGroup controlId="formSignRepassword">
+          <ControlLabel>Re-enter PASSWORD</ControlLabel>
+          <FormControl type="password" value={this.state.rePassword} placeholder="Enter password again" onChange={this.rePasswordInput} />
+        </FormGroup>
+        <HelpBlock>{this.state.message}</HelpBlock>
         <div>
-          <input type="text" value={this.state.username} name="username" placeholder="USERNAME" onChange={this.usernameInput} />
-          <input type="password" value={this.state.password} name="password" placeholder="PASSWORD" onChange={this.passwordInput} />
-          <input type="password" value={this.state.rePassword} name="rePassword" placeholder="RE-ENTER PASSWORD" onChange={this.rePasswordInput} />
-        </div>
-        <h4>{this.state.message}</h4>
-        <div>
-          <button onClick={this.showLoginForm}>RETURNED USER</button>
-          <button type="submit">SUBMIT</button>
+          <Button onClick={this.showLoginForm}>RETURNED USER</Button>
+          <Button type="submit">SUBMIT</Button>
         </div>
       </form>
     )
   }
-
+  
   render() {
     return (
       this.state.redirect ? <Redirect to="/main" /> :

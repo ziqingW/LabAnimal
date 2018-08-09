@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from '../store.js'
 import { Welcome } from './Welcome.jsx'
+import { Main } from './Main.jsx'
 
 class App extends React.Component{
   render () {
@@ -11,6 +12,7 @@ class App extends React.Component{
         <Provider store={store}>
           <Switch>
             <Route exact path="/" component={Welcome} />
+            <Route path="/main" component={Main} />
           </Switch>
         </Provider>
       </BrowserRouter>
