@@ -21,7 +21,8 @@ export class Welcome extends React.Component {
     e.preventDefault()
     let username = e.target.value
     this.setState({
-      username : username
+      username : username,
+      message : ""
     })
   }
 
@@ -29,7 +30,8 @@ export class Welcome extends React.Component {
     e.preventDefault()
     let password = e.target.value
     this.setState({
-      password : password
+      password : password,
+      message : ""
     })
   }
 
@@ -47,7 +49,8 @@ export class Welcome extends React.Component {
       signup: true,
       username : "",
       password : "",
-      rePassword : ""
+      rePassword : "",
+      message : ""
     })
   }
 
@@ -57,7 +60,8 @@ export class Welcome extends React.Component {
       signup: false,
       username : "",
       password : "",
-      rePassword : ""
+      rePassword : "",
+      message : ""
     })
   }
 
@@ -74,7 +78,6 @@ export class Welcome extends React.Component {
         if (message !== "Logged in") {
           this.setState({
             message : message,
-            username : "",
             password : ""
           })
         } else {

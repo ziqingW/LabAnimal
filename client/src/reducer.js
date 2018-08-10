@@ -2,7 +2,8 @@ const clone = require('clone')
 
 var initialState = {
   username: '',
-  userId: 0
+  userId: 0,
+  species: ""
 }
 
 export function labAnimal (state, action) {
