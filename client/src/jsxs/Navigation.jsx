@@ -19,6 +19,8 @@ export class Navigation extends React.Component {
               <NavItem eventKey={2} href="/project">Project</NavItem>
               <NavItem eventKey={3} href="/cages">Cages</NavItem>
               <NavItem eventKey={4} href="/animals">Animals</NavItem>
+            </Nav>
+            <Nav pullRight>
               <NavDropdown eventKey={5} title="User" id="user-nav-dropdown">
                 <MenuItem eventKey={5.1}>Log Off</MenuItem>
                 <MenuItem eventKey={5.2} href="/user/password">Change Password</MenuItem>

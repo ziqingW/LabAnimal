@@ -65,7 +65,7 @@ export class Welcome extends React.Component {
       message : ""
     })
   }
-  
+
   loginSubmit = e => {
     e.preventDefault()
     this.setState({
@@ -145,11 +145,11 @@ export class Welcome extends React.Component {
           <h3>LOGIN IN</h3>
           <FormGroup controlId="formLoginUsername">
             <ControlLabel>USERNAME</ControlLabel>
-            <FormControl type="text" value={this.state.username} placeholder="Enter username" onChange={this.usernameInput} />
+            <FormControl type="text" value={this.state.username} onChange={this.usernameInput} />
           </FormGroup>
           <FormGroup controlId="formLoginPassword">
             <ControlLabel>PASSWORD</ControlLabel>
-            <FormControl type="password" value={this.state.password} placeholder="Enter password" onChange={this.passwordInput} />
+            <FormControl type="password" value={this.state.password} onChange={this.passwordInput} />
           </FormGroup>
           <HelpBlock>{this.state.message}</HelpBlock>
           <div>
@@ -166,15 +166,15 @@ export class Welcome extends React.Component {
         <h3>SIGN UP</h3>
         <FormGroup controlId="formSignUsername">
           <ControlLabel>USERNAME</ControlLabel>
-          <FormControl type="text" value={this.state.username} placeholder="Enter username" onChange={this.usernameInput} />
+          <FormControl type="text" value={this.state.username} onChange={this.usernameInput} />
         </FormGroup>
         <FormGroup controlId="formSignPassword">
           <ControlLabel>PASSWORD</ControlLabel>
-          <FormControl type="password" value={this.state.password} placeholder="Enter password" onChange={this.passwordInput} />
+          <FormControl type="password" value={this.state.password} placeholder="Password must be longer than 8 characters" onChange={this.passwordInput} />
         </FormGroup>
         <FormGroup controlId="formSignRepassword">
-          <ControlLabel>Re-enter PASSWORD</ControlLabel>
-          <FormControl type="password" value={this.state.rePassword} placeholder="Enter password again" onChange={this.rePasswordInput} />
+          <ControlLabel>Re-Enter PASSWORD</ControlLabel>
+          <FormControl type="password" value={this.state.rePassword} placeholder="Password must be longer than 8 characters" onChange={this.rePasswordInput} />
         </FormGroup>
         <HelpBlock>{this.state.message}</HelpBlock>
         <div>
@@ -184,7 +184,7 @@ export class Welcome extends React.Component {
       </form>
     )
   }
-  
+
   render() {
     return (
       this.state.redirect ? <Redirect to="/main" /> :
