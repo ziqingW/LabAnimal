@@ -151,7 +151,7 @@ export class Welcome extends React.Component {
           <HelpBlock>{this.state.message}</HelpBlock>
           <div>
             <Button onClick={this.showSignForm}>NEW USER</Button>
-            <Button type="submit">OK</Button>
+            <Button bsStyle="primary" type="submit">OK</Button>
           </div>
         </form>
       )
@@ -176,7 +176,7 @@ export class Welcome extends React.Component {
         <HelpBlock>{this.state.message}</HelpBlock>
         <div>
           <Button onClick={this.showLoginForm}>RETURNED USER</Button>
-          <Button type="submit">SUBMIT</Button>
+          <Button bsStyle="primary" type="submit">SUBMIT</Button>
         </div>
       </form>
     )
