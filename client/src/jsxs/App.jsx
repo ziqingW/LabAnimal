@@ -12,7 +12,7 @@ class App extends React.Component{
         <Provider store={store}>
           <Switch>
             <Route exact path="/" component={Welcome} />
-            <Route path="/main" component={Main} />
+            <Route exact path="/main" component={Main} />
           </Switch>
         </Provider>
       </BrowserRouter>
