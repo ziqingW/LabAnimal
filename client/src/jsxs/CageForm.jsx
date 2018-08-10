@@ -8,7 +8,6 @@ export class CageForm extends React.Component {
     super (props)
     this.state = {
       cageNumber : "",
-      species : "",
       date : "",
       userId : "",
       project : "",
@@ -25,18 +24,6 @@ export class CageForm extends React.Component {
           <Col componentClass={ControlLabel} sm={2}>Cage #</Col>
           <Col sm={10}>
             <FormControl type="text" value={this.state.cageNumber} onChange={this.cageNumberInput} />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="cageSpecies">
-          <Col componentClass={ControlLabel} sm={2}>Species</Col>
-          <Col sm={10}>
-            <FormControl componentClass="select" placeholder="Select" onChange={this.speciesInput}>
-              <option value="Mouse">Mouse</option>
-              <option value="Rat">Rat</option>
-              <option value="Guinea Pig">Guinea Pig</option>
-              <option value="Pig">Pig</option>
-              <option value="Primate">Primate</option>
-            </FormControl>
           </Col>
         </FormGroup>
         <FormGroup controlId="cageDate">

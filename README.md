@@ -19,7 +19,7 @@ However, with the help of **LAMP**, the management of lab animals can be easy, f
 ___
 ### Main Techs
 - Node.js
-- React.js, React-Router, Redux
+- React.js, React-Router, Redux, React-Bootstrap
 - PostgreSQL
 
 ### Project Logs
@@ -30,5 +30,5 @@ ___
 - 08/08/2018, created template for UI  
 Summary <img src="readmePics/summary.png" alt="Summary" width="180px"/>&nbsp;&nbsp;Search Results<img src="readmePics/SearchResult.png" alt="Search" width="180px"/>&nbsp;&nbsp;Project <img src="readmePics/Project.png" alt="Project" width="180px"/>  
 Cage/Animal <img src="readmePics/CageAnimalPanel.png" alt="Cage" width="180px"/>&nbsp;&nbsp;New Project <img src="readmePics/NewProject.png" alt="NewProject" width="180px"/>&nbsp;&nbsp;New Cage <img src="readmePics/NewCage.png" alt="newCage" width="180px"/>
-
+- 08/09/2018, used React-Bootstrap as the framework
 
