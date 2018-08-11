@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import {FormGroup, ControlLabel, FormControl, HelpBlock, Button, Col} from 'react-bootstrap'
+import {Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Col} from 'react-bootstrap'
 
 export class CageForm extends React.Component {
   constructor (props) {
@@ -18,7 +18,7 @@ export class CageForm extends React.Component {
 
   render () {
     return (
-      <form horizontal onSubmit={this.cageSubmit}>
+      <Form horizontal onSubmit={this.cageSubmit}>
         <h3>New Cage</h3>
         <FormGroup controlId="cageNumber">
           <Col componentClass={ControlLabel} sm={2}>Cage #</Col>
@@ -48,7 +48,7 @@ export class CageForm extends React.Component {
           <Button onClick={this.cancelCageForm}>CANCEL</Button>
           <Button bsStyle="success" type="submit">ADD</Button>
         </div>
-      </form>
+      </Form>
     )
   }
 }
