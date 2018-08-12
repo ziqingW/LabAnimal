@@ -52,7 +52,7 @@ export class AnimalForm extends React.Component {
       }
   }
 
-  animalDOBInput = e => {
+  animalDOBInput = (i,e) => {
     e.preventDefault()
     let today = new Date()
     let pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/
@@ -62,18 +62,20 @@ export class AnimalForm extends React.Component {
       let dob = `${month}/${day}/${year}`
       dob = new Date(dob)
       let timeDiff = today.getTime() - dob.getTime()
+      let animals = clone(this.state.animals)
       if (timeDiff < 0) {
-        this.setState({
-          animalDOB: "",
-          animalAge : ""
-        })
+        animals[i].animalDOB = ""
+        animals[i].animalAge = ""
       } else {
         let diffWks = (timeDiff/(1000*3600*24*7)).toFixed(1)
-        this.setState({
-          animalDOB: animalDOB,
-          animalAge : diffWks
-        })
+        animals[i].animalDOB = animalDOB
+        animals[i].animalAge = diffWks
       }
+      this.setState({
+        animals : animals,
+        updateIndex : i,
+        updateTag : "animalDOB"
+      })
     }
   }
 
@@ -90,12 +92,55 @@ export class AnimalForm extends React.Component {
               </Col>
               {this.state.showForm ? (
               <Col sm={1}>
-                <Button bsStyle="primary">COPY</Button>
+                <Button onClick={this.copyRow} bsStyle="primary">COPY</Button>
               </Col>
             ) : null}
             </FormGroup>
           </Form>
       )
+  }
+  copyRow = () => {
+      let animals = clone(this.state.animals)
+      let animalFormNumber = this.state.animalFormNumber
+      let copyrow = clone(animals[animalFormNumber - 1])
+      animals[animalFormNumber] = copyrow
+      animals[animalFormNumber]["animalNumber"] = ""
+      this.setState({
+        animals : animals,
+        animalFormNumber : animalFormNumber+1
+      }, function() {
+        this.makeRows(this.state.animalFormNumber)
+      })
+  }
+
+  deleteRow = (key, event) => {
+      event.preventDefault()
+      let animals = clone(this.state.animals)
+      animals.splice(key,1)
+      animals.push({
+        animalNumber : "",
+        animalSpecies : "",
+        animalStrain : "C57/BL6",
+        animalGender : "",
+        animalDOB : "",
+        animalAge : "",
+        animalGeno : "PLD1KO"
+      })
+      let animalFormNumber = this.state.animalFormNumber - 1
+      if (animalFormNumber === 0) {
+        this.setState({
+          animals : animals,
+          animalFormNumber : animalFormNumber,
+          showForm : false
+        })
+      } else {
+      this.setState({
+        animals : animals,
+        animalFormNumber : this.state.animalFormNumber - 1
+      }, function() {
+        this.makeRows(this.state.animalFormNumber)
+      })
+    }
   }
 
   animalFormNumberChange = e => {
@@ -117,7 +162,7 @@ export class AnimalForm extends React.Component {
             </td>
             <td>
               <FormGroup controlId="animalSpecies">
-                  <FormControl componentClass="select" placeholder="Select" onChange={e => {this.eventHandler("animalSpecies", e)}}>
+                  <FormControl componentClass="select" placeholder="Select" value={this.state.animals[i].animalSpecies} onChange={ e => {this.eventHandler("animalSpecies",i, e)}}>
                     <option value="">- Select -</option>
                     <option value="Mouse">Mouse</option>
                     <option value="Rat">Rat</option>
@@ -129,12 +174,12 @@ export class AnimalForm extends React.Component {
             </td>
             <td>
               <FormGroup controlId="animalStrain">
-                <FormControl type="text" value={this.state.animals[i].animalStrain} onChange={e => {this.eventHandler("animalStrain", e)}} />
+                <FormControl type="text" value={this.state.animals[i].animalStrain} onChange={ e => {this.eventHandler("animalStrain",i, e)}} />
               </FormGroup>
             </td>
             <td>
               <FormGroup controlId="animalGender">
-                <FormControl componentClass="select" placeholder="-" onChange={e => {this.eventHandler("animalGender", e)}}>
+                <FormControl componentClass="select" placeholder="-" value={this.state.animals[i].animalGender} onChange={ e => {this.eventHandler("animalGender",i, e)}}>
                   <option value="">-</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -143,15 +188,20 @@ export class AnimalForm extends React.Component {
             </td>
             <td>
               <FormGroup controlId="animalDOB">
-                <FormControl type="date" value={this.state.animalDOB} onChange={this.animalDOBInput} />
+                <FormControl type="date" value={this.state.animals[i].animalDOB} onChange={ e => {this.animalDOBInput(i,e)}} />
               </FormGroup>
             </td>
             <td>
-              {this.state.animalAge}
+              {this.state.animals[i].animalAge}
             </td>
             <td>
               <FormGroup controlId="animalGeno">
-                <FormControl type="text" value={this.state.animalGeno} onChange={e => {this.eventHandler("animalGeno", e)}} />
+                <FormControl type="text" value={this.state.animals[i].animalGeno} onChange={ e => {this.eventHandler("animalGeno", i, e)}} />
+              </FormGroup>
+            </td>
+            <td>
+              <FormGroup controlId="animalGeno">
+                <Button bsStyle="danger" onClick={e => {this.deleteRow(i,e)}}>Delete</Button>
               </FormGroup>
             </td>
         </tr>))
@@ -178,11 +228,7 @@ export class AnimalForm extends React.Component {
       let nowAnimals = clone(this.state.animals)
       let index = this.state.updateIndex
       let content = this.state.updateTag
-      console.log("haha")
-      if (index!=="" && content) {
-        console.log(index, content)
-        console.log(prevAnimals[index][content])
-        console.log(nowAnimals[index][content])
+      if (index !== "" && content) {
         if (prevAnimals[index][content] !== nowAnimals[index][content]) {
           this.makeRows(this.state.animalFormNumber)
         }
@@ -204,6 +250,7 @@ export class AnimalForm extends React.Component {
                 <th>Date Of Birth</th>
                 <th>Age (Weeks)</th>
                 <th>Genotype</th>
+                <th>{" "}</th>
               </tr>
             </thead>
             <tbody>
