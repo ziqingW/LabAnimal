@@ -9,23 +9,20 @@ export class Navigation extends React.Component {
       <div>
         <h2>Lab Animal Management Platform</h2>
           <Navbar>
-            <Navbar.Form pullLeft>
-              <FormGroup>
-                <FormControl type="text" placeholder="Search" />
-                </FormGroup>{' '}
-              </Navbar.Form>
+            <Navbar.Header>
+              <Navbar.Brand>
+              </Navbar.Brand>
+            </Navbar.Header>
             <Nav>
-              <NavItem eventKey={1} href="/main">Summary</NavItem>
-              <NavItem eventKey={2} href="/project">Project</NavItem>
-              <NavItem eventKey={3} href="/cages">Cages</NavItem>
-              <NavItem eventKey={4} href="/animals">Animals</NavItem>
+              <NavItem eventKey={1} href="/main">SUMMARY</NavItem>
+              <NavItem eventKey={2} href="/animals">ANIMALS</NavItem>
             </Nav>
             <Nav pullRight>
-              <NavDropdown eventKey={5} title="User" id="user-nav-dropdown">
-                <MenuItem eventKey={5.1}>Log Off</MenuItem>
-                <MenuItem eventKey={5.2} href="/user/password">Change Password</MenuItem>
+              <NavDropdown eventKey={3} title="USER" id="user-nav-dropdown">
+                <MenuItem eventKey={3.1}>Log Off</MenuItem>
+                <MenuItem eventKey={3.2} href="/user/password">Change Password</MenuItem>
                 <MenuItem divider />
-                <MenuItem eventKey={5.4} href="/user/delete">DELETE ACCOUNT</MenuItem>
+                <MenuItem eventKey={3.4} href="/user/delete">DELETE ACCOUNT</MenuItem>
               </NavDropdown>
             </Nav>
           </Navbar>

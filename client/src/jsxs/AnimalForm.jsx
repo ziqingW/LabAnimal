@@ -256,6 +256,7 @@ export class AnimalForm extends React.Component {
                     <option value="">- Select -</option>
                     <option value="Mouse">Mouse</option>
                     <option value="Rat">Rat</option>
+                    <option value="Rabbit">Rabbit</option>
                     <option value="Guinea Pig">Guinea Pig</option>
                     <option value="Pig">Pig</option>
                     <option value="Primate">Primate</option>
