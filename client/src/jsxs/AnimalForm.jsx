@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { connect } from 'react-redux'
-import {Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Col, Table} from 'react-bootstrap'
+import {Form, FormGroup, ControlLabel, FormControl, Button, Col, Table, Modal} from 'react-bootstrap'
 const clone = require('clone')
 
 let animalsBase = []
@@ -13,7 +12,8 @@ for (let i = 0; i < 50; i ++) {
     animalGender : "",
     animalDOB : "",
     animalAge : "",
-    animalGeno : "PLD1KO"
+    animalGeno : "PLD1KO",
+    animalNotes : ""
   })
 }
 
@@ -27,7 +27,10 @@ export class AnimalForm extends React.Component {
       showForm : false,
       animals : animalsBase,
       updateIndex: "",
-      updateTag : ""
+      updateTag : "",
+      modalShow : false,
+      warning: "",
+      submitAnimals: []
     }
   }
 
@@ -39,8 +42,78 @@ export class AnimalForm extends React.Component {
     this.setState({
       animals : animals,
       updateIndex : key,
-      updateTag : tag
+      updateTag : tag,
+      warning: ""
     })
+  }
+
+  showModal = () => {
+    let animals = clone(this.state.animals)
+    let animalFormNumber = this.state.animalFormNumber
+    animals = animals.slice(0,animalFormNumber)
+    let animalNumbers = {}
+    let flag = true
+    animals.forEach(animal => {
+      if (animal.animalNumber === "" || animal.animalSpecies === "" || animal.animalStrain === "" || animal.animalGender === "" || animal.animalDOB === "" || animal.animalGeno === "") {
+        this.setState({
+          warning: "Column with * can't be left blank"
+        })
+        flag = false
+        return
+      } else {
+        if (!(animal.animalNumber in animalNumbers)) {
+        animalNumbers[animal.animalNumber] = 1
+      } else {
+        this.setState({
+          warning : "Animal # can't be the same"
+        })
+        flag =false
+        return
+      }
+      }
+    })
+    if (flag) {
+      this.setState({
+        modalShow: true,
+        submitAnimals : animals
+      })
+    }
+  }
+
+  closeModal = () => {
+    this.setState({
+      modalShow: false
+    })
+  }
+
+  animalTableSubmit = () => {
+    let submitAnimals = clone(this.state.submitAnimals)
+    axios.post("/submit/newanimals", {submitAnimals: submitAnimals})
+      .then(response => {
+        let message = response.data.message
+        if (message === "number") {
+          this.setState({
+            modalShow : false,
+            warning : "Error: same animal # found in database"
+          })
+        } else {
+          this.setState({
+            animalFormNumberAdd : "",
+            animalFormNumber: 0,
+            animalRows: [],
+            showForm : false,
+            animals : animalsBase,
+            updateIndex: "",
+            updateTag : "",
+            modalShow : false,
+            warning: "New animals added",
+            submitAnimals: []
+          })
+        }
+      })
+      .catch (err => {
+        console.log(err)
+      })
   }
 
   animalFormNumberValid = () => {
@@ -88,17 +161,23 @@ export class AnimalForm extends React.Component {
                 <FormControl type="number" value={this.state.animalFormNumberAdd} onChange={this.animalFormNumberChange} placeholder="Enter number" max="20" min="1"/>
               </Col>
               <Col sm={1}>
-                <Button bsStyle="success" type="submit">ADD</Button>
+                <Button bsStyle="primary" type="submit">ADD</Button>
               </Col>
               {this.state.showForm ? (
+                <div>
               <Col sm={1}>
                 <Button onClick={this.copyRow} bsStyle="primary">COPY</Button>
               </Col>
+              <Col sm={1}>
+                <Button onClick={this.showModal} bsStyle="success">SUBMIT</Button>
+              </Col>
+              </div>
             ) : null}
             </FormGroup>
           </Form>
       )
   }
+
   copyRow = () => {
       let animals = clone(this.state.animals)
       let animalFormNumber = this.state.animalFormNumber
@@ -107,7 +186,8 @@ export class AnimalForm extends React.Component {
       animals[animalFormNumber]["animalNumber"] = ""
       this.setState({
         animals : animals,
-        animalFormNumber : animalFormNumber+1
+        animalFormNumber : animalFormNumber+1,
+        warning: ""
       }, function() {
         this.makeRows(this.state.animalFormNumber)
       })
@@ -131,12 +211,14 @@ export class AnimalForm extends React.Component {
         this.setState({
           animals : animals,
           animalFormNumber : animalFormNumber,
-          showForm : false
+          showForm : false,
+          warning: ""
         })
       } else {
       this.setState({
         animals : animals,
-        animalFormNumber : this.state.animalFormNumber - 1
+        animalFormNumber : this.state.animalFormNumber - 1,
+        warning: ""
       }, function() {
         this.makeRows(this.state.animalFormNumber)
       })
@@ -144,10 +226,18 @@ export class AnimalForm extends React.Component {
   }
 
   animalFormNumberChange = e => {
-      let animalFormNumberAdd = parseInt(e.target.value)
+      let animalFormNumberAdd = e.target.value
+      if (animalFormNumberAdd) {
       this.setState({
-        animalFormNumberAdd : animalFormNumberAdd
+        animalFormNumberAdd : parseInt(animalFormNumberAdd, 10),
+        warning: ""
       })
+    } else {
+      this.setState({
+        animalFormNumberAdd : "",
+        warning: ""
+      })
+    }
   }
 
   makeRows = num => {
@@ -200,6 +290,11 @@ export class AnimalForm extends React.Component {
               </FormGroup>
             </td>
             <td>
+              <FormGroup controlId="animalNotes">
+                <FormControl componentClass="textarea" value={this.state.animals[i].animalNotes} onChange={ e => {this.eventHandler("animalNotes", i, e)}} />
+              </FormGroup>
+            </td>
+            <td>
               <FormGroup controlId="animalGeno">
                 <Button bsStyle="danger" onClick={e => {this.deleteRow(i,e)}}>Delete</Button>
               </FormGroup>
@@ -218,7 +313,8 @@ export class AnimalForm extends React.Component {
         this.makeRows(animalFormNumber)
         this.setState({
           animalFormNumber : animalFormNumber,
-          showForm : true
+          showForm : true,
+          warning: ""
         })
       }
     }
@@ -243,13 +339,14 @@ export class AnimalForm extends React.Component {
           <Table striped bordered condensed hover>
             <thead>
               <tr>
-                <th>Animal #</th>
-                <th>Species</th>
-                <th>Strain</th>
-                <th>Gender</th>
-                <th>Date Of Birth</th>
+                <th>*Animal #</th>
+                <th>*Species</th>
+                <th>*Strain</th>
+                <th>*Gender</th>
+                <th>*Date Of Birth</th>
                 <th>Age (Weeks)</th>
-                <th>Genotype</th>
+                <th>*Genotype</th>
+                <th>Notes</th>
                 <th>{" "}</th>
               </tr>
             </thead>
@@ -261,6 +358,19 @@ export class AnimalForm extends React.Component {
           </Table>
         </Form>): null}
         {this.animalFormNumberInput()}
+        <h4>{this.state.warning}</h4>
+        <Modal show={this.state.modalShow} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Animals</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h3>Are you sure to add these animals?</h3>
+            <div>
+              <Button onClick={this.closeModal}>NO</Button>
+              <Button onClick={this.animalTableSubmit}>YES</Button>
+            </div>
+          </Modal.Body>
+        </Modal>
       </div>
     )
   }
