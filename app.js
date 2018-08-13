@@ -80,6 +80,9 @@ app.post('/submit/newanimals', function(req, resp, next) {
             .then(results => {
               resp.json({message: "OK"})
             })
+            .catch(err=>{
+              console.log(err)
+            })
         }
       })
       .catch(next)
