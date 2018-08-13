@@ -14,7 +14,7 @@ class App extends React.Component{
         <Provider store={store}>
           <Switch>
             <Route exact path="/" component={Welcome} />
-            <Route exact path="/main" component={Main} />
+            <Route path="/main" component={Main} />
             <Route exact path="/newcage" component={CagePage} />
             <Route exact path="/newanimal" component={AnimalPage} />
           </Switch>
