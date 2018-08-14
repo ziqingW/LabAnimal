@@ -61,6 +61,8 @@ app.post('/signup', function (req, resp, next) {
 
 app.post('/submit/newanimals', function(req, resp, next) {
   let submitAnimals = clone(req.body.submitAnimals)
+  let userId = req.body.userId
+  console.log(userId)
   submitAnimals.forEach(animal => {
     let tag = animal.animalNumber
     let genotype = animal.animalGeno
@@ -75,8 +77,8 @@ app.post('/submit/newanimals', function(req, resp, next) {
         if(results.length > 0) {
           resp.json({message: "number"})
         } else {
-          q = "INSERT INTO animals VALUES (DEFAULT, ${tag}, ${genotype}, ${birthday}, ${gender}, ${strain}, ${species}, ${comments})"
-          db.query(q, {tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments})
+          q = "INSERT INTO animals VALUES (DEFAULT, ${tag}, ${genotype}, ${birthday}, ${gender}, ${strain}, ${species}, ${comments}, ${user_id})"
+          db.query(q, {tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments, user_id: userId})
             .then(results => {
               resp.json({message: "OK"})
             })
@@ -87,6 +89,20 @@ app.post('/submit/newanimals', function(req, resp, next) {
       })
       .catch(next)
   })
+})
+
+app.post("/table/animals", function(req,resp,next) {
+  let userId = req.body.userId
+  let q = "SELECT * FROM animals WHERE user_id=${userId}"
+  db.query(q, {userId: userId})
+    .then(results=> {
+      if(results.length > 0) {
+        resp.json({message: "OK", data: results})
+      } else {
+        resp.json({message : "No animals found"})
+      }
+    })
+    .catch(next)
 })
 
 app.get(/^\/.*/, function (req, res) {

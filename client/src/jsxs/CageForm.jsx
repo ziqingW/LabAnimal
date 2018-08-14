@@ -9,7 +9,6 @@ export class CageForm extends React.Component {
     this.state = {
       cageNumber : "",
       date : "",
-      userId : "",
       project : "",
       animals : [],
       comment: ""

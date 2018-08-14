@@ -1,12 +1,31 @@
 import React from 'react'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl } from 'react-bootstrap'
-import Highcharts from 'highcharts/highstock'
-import HighchartsReact from 'highcharts-react-official'
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { getUser } from '../actions.js'
 
 export class Navigation extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      redirect : false
+    }
+  }
+
+  componentDidMount = () => {
+    let userInfo = sessionStorage.getItem("userInfo")
+    if (!userInfo) {
+      this.setState({
+        redirect : true
+      })
+    } else {
+      this.props.getUser(userInfo)
+    }
+  }
+
   render() {
-    return (
-      <div>
+    return (this.state.redirect ? <Redirect to="/" />
+      :(<div>
         <h2>Lab Animal Management Platform</h2>
           <Navbar>
             <Navbar.Header>
@@ -27,5 +46,16 @@ export class Navigation extends React.Component {
             </Nav>
           </Navbar>
       </div>)
+    )
 }
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getUser: function(data) {
+            dispatch(getUser(data));
+        }
+    };
+}
+
+Navigation = connect(null, mapDispatchToProps)(Navigation);

@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import {Form, FormGroup, ControlLabel, FormControl, Button, Col, Table, Modal} from 'react-bootstrap'
+import { connect } from 'react-redux'
 const clone = require('clone')
 
 let animalsBase = []
@@ -88,7 +89,7 @@ export class AnimalForm extends React.Component {
 
   animalTableSubmit = () => {
     let submitAnimals = clone(this.state.submitAnimals)
-    axios.post("/submit/newanimals", {submitAnimals: submitAnimals})
+    axios.post("/submit/newanimals", {submitAnimals: submitAnimals, userId:this.props.userId})
       .then(response => {
         let message = response.data.message
         if (message === "number") {
@@ -376,3 +377,11 @@ export class AnimalForm extends React.Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        userId : state.userId
+    }
+}
+
+AnimalForm = connect(mapStateToProps)(AnimalForm);
