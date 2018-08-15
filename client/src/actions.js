@@ -4,3 +4,9 @@ export function getUser(data) {
     data : data
   }
 }
+export function getAnimals(data) {
+  return {
+    type : "GET_ANIMAL",
+    data : data
+  }
+}

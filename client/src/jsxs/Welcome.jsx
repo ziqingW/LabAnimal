@@ -196,9 +196,9 @@ export class Welcome extends React.Component {
 function mapDispatchToProps(dispatch) {
     return {
         getUser: function(data) {
-            dispatch(getUser(data));
+            dispatch(getUser(data))
         }
-    };
+    }
 }
 
-Welcome = connect(null, mapDispatchToProps)(Welcome);
+Welcome = connect(null, mapDispatchToProps)(Welcome)

@@ -3,7 +3,8 @@ const clone = require('clone')
 var initialState = {
   username: '',
   userId: 0,
-  species: ""
+  species: "",
+  editAnimals : []
 }
 
 export function labAnimal (state, action) {
@@ -17,6 +18,11 @@ export function labAnimal (state, action) {
       let data = JSON.parse(action.data)
       new_state.username = data.username
       new_state.userId = data.userId
+      return new_state
+    case 'GET_ANIMAL':
+      new_state = clone(state)
+      let editAnimals = action.data
+      new_state.editAnimals = editAnimals
       return new_state
     default:
       return state

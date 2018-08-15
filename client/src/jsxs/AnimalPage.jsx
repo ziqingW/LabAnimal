@@ -1,13 +1,13 @@
 import React from 'react'
 import {Navigation} from './Navigation.jsx'
-import {AnimalForm} from './AnimalForm.jsx'
+import { AnimalTable } from './AnimalTable.jsx'
 
 export class AnimalPage extends React.Component {
   render () {
     return (
       <div>
         <Navigation />
-        <AnimalForm />
+        <AnimalTable />
       </div>
     )
   }

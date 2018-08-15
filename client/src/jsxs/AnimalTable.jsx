@@ -1,9 +1,12 @@
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import checkboxHOC from "react-table/lib/hoc/selectTable"
+import { Button } from 'react-bootstrap'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getAnimals } from '../actions.js'
 import React from 'react'
 import axios from 'axios'
-
 const clone = require('clone')
 const CheckboxTable = checkboxHOC(ReactTable)
 
@@ -14,7 +17,8 @@ export class AnimalTable extends React.Component {
       data : [],
       message : "",
       selection: [],
-      selectAll: false
+      selectAll: false,
+      redirect : false
     }
   }
 
@@ -31,9 +35,11 @@ export class AnimalTable extends React.Component {
           let data = clone(results.data.data)
           data.forEach(animal => {
             let dob = new Date(animal.birthday)
+            let dobModified = dob.toLocaleDateString("en-US")
             let timeDiff = today.getTime() - dob.getTime()
             let diffWks = (timeDiff/(1000*3600*24*7)).toFixed(1)
             let _id = animal.id
+            animal.birthday = dobModified
             animal['_id'] = _id
             animal['age'] = diffWks
           })
@@ -112,6 +118,14 @@ export class AnimalTable extends React.Component {
     return this.state.selection.includes(key)
   };
 
+  editAnimal = () => {
+    let selection = clone(this.state.selection)
+    this.props.getAnimals(selection)
+    this.setState({
+      redirect : true
+    })
+  }
+
   render() {
     const columns = [{
       Header: 'Animal #',
@@ -126,19 +140,23 @@ export class AnimalTable extends React.Component {
     }, {
       Header: 'Gender',
       accessor: 'gender'
+
     }, {
       Header: 'Birthday',
-      accessor: 'birthday'
+      accessor: 'birthday',
+      filterable: false
     }, {
       Header: 'Age (Wks)',
-      accessor: 'age'
+      accessor: 'age',
+      filterable: false
     },
     {
       Header: 'Genotype',
       accessor: 'genotype'
     }, {
       Header: 'Comments',
-      accessor: 'comments'
+      accessor: 'comments',
+      filterable: false
     }]
     const { toggleSelection, toggleAll, isSelected } = this
     const { selectAll } = this.state
@@ -149,10 +167,25 @@ export class AnimalTable extends React.Component {
       toggleAll,
       selectType: "checkbox",
     }
-    return (<CheckboxTable ref={r => (this.checkboxTable = r)} data={this.state.data} columns={columns} defaultPageSize={10} style={{
+    return (this.state.redirect ? <Redirect to="/animals/edit" /> :
+      (<div>
+        <CheckboxTable ref={r => (this.checkboxTable = r)} data={this.state.data} columns={columns} defaultPageSize={10} style={{
             height: "500px"
-          }}
-  className="-striped -highlight" {...checkboxProps} />)
-
+          }} noDataText="No records found" filterable className="-striped -highlight" {...checkboxProps} />
+        <div>
+          <Button><Link to="/animals/new">ADD ANIMAL</Link></Button>
+          <Button onClick={this.editAnimal}>EDIT</Button>
+        </div>
+      </div>))
   }
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getAnimals: function(data) {
+            dispatch(getAnimals(data))
+        }
+    }
+}
+
+AnimalTable = connect(null, mapDispatchToProps)(AnimalTable)

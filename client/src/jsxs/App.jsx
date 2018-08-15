@@ -6,6 +6,8 @@ import { Welcome } from './Welcome.jsx'
 import { Main } from './Main.jsx'
 import { CagePage } from './CagePage.jsx'
 import { AnimalPage } from './AnimalPage.jsx'
+import { AnimalNew } from './AnimalNew.jsx'
+import { AnimalEdit } from './AnimalEdit.jsx'
 
 class App extends React.Component{
   render () {
@@ -16,7 +18,9 @@ class App extends React.Component{
             <Route exact path="/" component={Welcome} />
             <Route path="/main" component={Main} />
             <Route exact path="/newcage" component={CagePage} />
-            <Route exact path="/newanimal" component={AnimalPage} />
+            <Route exact path="/animals" component={AnimalPage} />
+            <Route exact path="/animals/new" component={AnimalNew} />
+            <Route exact path="/animals/edit" component={AnimalEdit} />
           </Switch>
         </Provider>
       </BrowserRouter>
