@@ -71,8 +71,8 @@ app.post('/submit/newanimals', function(req, resp, next) {
     let strain = animal.animalStrain
     let species = animal.animalSpecies
     let comments = animal.animalNotes
-    let q = "SELECT * FROM animals WHERE tag=${tag}"
-    db.query(q, {tag: tag})
+    let q = "SELECT * FROM animals WHERE tag=${tag} and user_id=${userId}"
+    db.query(q, {tag: tag, userId: userId})
       .then(results => {
         if(results.length > 0) {
           resp.json({message: "number"})

@@ -119,8 +119,18 @@ export class AnimalTable extends React.Component {
   };
 
   editAnimal = () => {
-    let selection = clone(this.state.selection)
-    this.props.getAnimals(selection)
+    let selection = {}
+    for (let i = 0; i < this.state.selection.length; i ++) {
+      selection[this.state.selection[i]] = 1
+    }
+    let data = clone(this.state.data)
+    let editAnimals = []
+    data.forEach(animal => {
+      if (animal.id in selection) {
+        editAnimals.push(animal)
+      }
+    })
+    this.props.getAnimals(editAnimals)
     this.setState({
       redirect : true
     })
