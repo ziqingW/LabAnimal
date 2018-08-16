@@ -19,7 +19,7 @@ However, with the help of **LAMP**, the management of lab animals can be easy, f
 ___
 ### Main Techs
 - Node.js
-- React.js, React-Router, Redux, React-Bootstrap
+- React.js, React-Router, Redux, React-Bootstrap, React-table
 - PostgreSQL
 
 ### Project Logs
