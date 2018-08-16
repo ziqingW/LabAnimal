@@ -91,7 +91,7 @@ app.post('/submit/newanimals', function(req, resp, next) {
 })
 
 app.post('/submit/deleteanimals', function(req, resp, next) {
-  let selection = req.body.selection
+  let selection = clone(req.body.selection)
   let userId = req.body.userId
   selection.forEach(id => {
     let q = "DELETE FROM animals WHERE id=${id} and user_id=${userId}"
@@ -102,6 +102,38 @@ app.post('/submit/deleteanimals', function(req, resp, next) {
       .catch(err => {
         console.log(err)
       })
+  })
+})
+
+app.post("/submit/editanimals", function(req, resp, next) {
+  let animals = clone(req.body.animals)
+  let userId = req.body.userId
+  animals.forEach(animal => {
+    let id = animal.id
+    let tag = animal.tag
+    let genotype = animal.genotype
+    let birthday = animal.birthday
+    let gender = animal.gender
+    let strain = animal.strain
+    let species = animal.species
+    let comments = animal.comments
+    var q = "SELECT * FROM animals WHERE tag=${tag} AND user_id=${userId}"
+    db.query(q, {tag: tag, userId: userId})
+      .then(results=> {
+        if (results.length > 0 && results[0].id !== id) {
+            resp.json({message: "number"})
+          } else {
+            q = "UPDATE animals SET tag=${tag}, genotype=${genotype}, birthday=${birthday}, gender=${gender}, strain=${strain}, species=${species}, comments=${comments} WHERE id=${id} and user_id=${userId}"
+            db.query(q, {id: id, tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments, userId: userId})
+              .then(results => {
+                resp.json({message: "OK"})
+              })
+              .catch (err => {
+                console.log(err)
+              })
+          }
+      })
+    .catch (next)
   })
 })
 

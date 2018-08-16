@@ -1,21 +1,37 @@
 import React from 'react'
 import { Navigation } from './Navigation.jsx'
-import { Link } from 'react-router-dom'
-import {Form, FormGroup, ControlLabel, FormControl, Button, Col, Table, HelpBlock} from 'react-bootstrap'
+import { Link, Redirect } from 'react-router-dom'
+import {FormGroup, FormControl, Button, Table, HelpBlock} from 'react-bootstrap'
 import { connect } from 'react-redux'
+import axios from 'axios'
 const clone = require('clone')
 
 export class AnimalEdit extends React.Component {
   constructor (props) {
     super(props)
+    let animals = clone(this.props.editAnimals)
+    animals.forEach(animal => {
+      let dob = animal.birthday
+      let [month, day, year] = dob.split("/")
+      if (parseInt(month, 10) - 10 < 0) {
+        month = '0' + month
+      }
+      if (parseInt(day, 10) - 10 < 0) {
+        day = '0' + day
+      }
+      dob = `${year}-${month}-${day}`
+      animal.birthday = dob
+    })
     this.state = {
-      animals : [],
+      animals : animals,
       editlRows : [],
       updateIndex: "",
-      updateTag : ""
+      updateTag : "",
+      redirect : false,
+      message : ""
     }
   }
-  
+
   eventHandler = (tag, key, event) => {
     event.preventDefault()
     let tagValue = event.target.value
@@ -27,7 +43,7 @@ export class AnimalEdit extends React.Component {
       updateTag : tag
     })
   }
-  
+
   animalDOBInput = (i,e) => {
     e.preventDefault()
     let today = new Date()
@@ -40,21 +56,21 @@ export class AnimalEdit extends React.Component {
       let timeDiff = today.getTime() - dob.getTime()
       let animals = clone(this.state.animals)
       if (timeDiff < 0) {
-        animals[i].animalDOB = ""
-        animals[i].animalAge = ""
+        animals[i].birthday = ""
+        animals[i].age = ""
       } else {
         let diffWks = (timeDiff/(1000*3600*24*7)).toFixed(1)
-        animals[i].animalDOB = animalDOB
-        animals[i].animalAge = diffWks
+        animals[i].birthday = animalDOB
+        animals[i].age = diffWks
       }
       this.setState({
         animals : animals,
         updateIndex : i,
-        updateTag : "animalDOB"
+        updateTag : "birthday"
       })
     }
   }
-  
+
   makeEditRows = () => {
     let rows = []
     this.state.animals.forEach((animal, i) => {
@@ -62,12 +78,12 @@ export class AnimalEdit extends React.Component {
         (<tr key={i}>
             <td>
               <FormGroup controlId="editanimalNumber">
-                  <FormControl type="text" value={animal.animalNumber} onChange={ e => {this.eventHandler("animalNumber", i, e)}} />
+                  <FormControl type="text" value={animal.tag} onChange={ e => {this.eventHandler("tag", i, e)}} />
               </FormGroup>
             </td>
             <td>
-              <FormGroup controlId="animalSpecies">
-                  <FormControl componentClass="select" placeholder="Select" value={animal.animalSpecies} onChange={ e => {this.eventHandler("animalSpecies",i, e)}}>
+              <FormGroup controlId="editanimalSpecies">
+                  <FormControl componentClass="select" placeholder="Select" value={animal.species} onChange={ e => {this.eventHandler("species",i, e)}}>
                     <option value="">- Select -</option>
                     <option value="Mouse">Mouse</option>
                     <option value="Rat">Rat</option>
@@ -79,13 +95,13 @@ export class AnimalEdit extends React.Component {
               </FormGroup>
             </td>
             <td>
-              <FormGroup controlId="animalStrain">
-                <FormControl type="text" value={animal.animalStrain} onChange={ e => {this.eventHandler("animalStrain",i, e)}} />
+              <FormGroup controlId="editanimalStrain">
+                <FormControl type="text" value={animal.strain} onChange={ e => {this.eventHandler("strain",i, e)}} />
               </FormGroup>
             </td>
             <td>
-              <FormGroup controlId="animalGender">
-                <FormControl componentClass="select" placeholder="-" value={animal.animalGender} onChange={ e => {this.eventHandler("animalGender",i, e)}}>
+              <FormGroup controlId="editanimalGender">
+                <FormControl componentClass="select" placeholder="-" value={animal.gender} onChange={ e => {this.eventHandler("gender",i, e)}}>
                   <option value="">-</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -93,21 +109,21 @@ export class AnimalEdit extends React.Component {
               </FormGroup>
             </td>
             <td>
-              <FormGroup controlId="animalDOB">
-                <FormControl type="date" value={animal.animalDOB} onChange={ e => {this.animalDOBInput(i,e)}} />
+              <FormGroup controlId="editanimalDOB">
+                <FormControl type="date" value={animal.birthday} onChange={ e => {this.animalDOBInput(i,e)}} />
               </FormGroup>
             </td>
             <td>
-              {animal.animalAge}
+              {animal.age}
             </td>
             <td>
-              <FormGroup controlId="animalGeno">
-                <FormControl type="text" value={animal.animalGeno} onChange={ e => {this.eventHandler("animalGeno", i, e)}} />
+              <FormGroup controlId="editanimalGeno">
+                <FormControl type="text" value={animal.genotype} onChange={ e => {this.eventHandler("genotype", i, e)}} />
               </FormGroup>
             </td>
             <td>
-              <FormGroup controlId="animalNotes">
-                <FormControl componentClass="textarea" value={animal.animalNotes} onChange={ e => {this.eventHandler("animalNotes", i, e)}} />
+              <FormGroup controlId="editanimalNotes">
+                <FormControl componentClass="textarea" value={animal.comments} onChange={ e => {this.eventHandler("comments", i, e)}} />
               </FormGroup>
             </td>
         </tr>))
@@ -116,13 +132,11 @@ export class AnimalEdit extends React.Component {
       editlRows : rows
     })
   }
-  
+
   componentDidMount = () => {
-    this.setState({
-      animals : clone(this.props.editAnimals)
-    }, this.makeEditRows())
+    this.makeEditRows()
   }
-  
+
   componentDidUpdate = (prevProps, prevState) => {
     let prevAnimals = clone(prevState.animals)
     let nowAnimals = clone(this.state.animals)
@@ -134,10 +148,54 @@ export class AnimalEdit extends React.Component {
       }
     }
   }
-  
+
+  editAnimals = () => {
+    let animals = clone(this.state.animals)
+    let animalNumbers = {}
+    let flag = true
+    animals.forEach(animal => {
+      if (animal.tag === "" || animal.species === "" || animal.strain === "" || animal.gender === "" || animal.birthday === "" || animal.genotype === "") {
+        this.setState({
+          message: "Column with * can't be left blank"
+        })
+        flag = false
+        return
+      } else {
+        if (!(animal.tag in animalNumbers)) {
+        animalNumbers[animal.tag] = 1
+      } else {
+        this.setState({
+          message : "Animal # can't be the same"
+        })
+        flag =false
+        return
+      }
+      }
+    })
+    if (flag) {
+      const userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
+      axios.post("/submit/editanimals", {animals: animals, userId: userInfo.userId})
+        .then(results=> {
+          if(results.data.message === "OK") {
+            this.setState({
+              redirect : true
+            })
+          } else {
+            console.log("2")
+            this.setState({
+              message: "Error: same animal # found in database"
+            })
+          }
+        })
+        .catch (err => {
+          console.log(err)
+        })
+      }
+  }
+
   render () {
-    return (
-      <div>
+    return (this.state.redirect ? <Redirect to="/animals" /> :
+      (<div>
         <Navigation />
         <Table striped bordered condensed hover>
           <thead>
@@ -164,7 +222,8 @@ export class AnimalEdit extends React.Component {
           <Button onClick={this.editAnimals}>OK</Button>
         </div>
         <HelpBlock>Column with * can't be left blank</HelpBlock>
-      </div>
+        <HelpBlock>{this.state.message}</HelpBlock>
+      </div>)
     )
   }
 }

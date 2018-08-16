@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {Form, FormGroup, ControlLabel, FormControl, Button, Col, Table, Modal} from 'react-bootstrap'
+import {Form, FormGroup, ControlLabel, FormControl, Button, Col, Table, Modal, HelpBlock} from 'react-bootstrap'
 import { connect } from 'react-redux'
 const clone = require('clone')
 
@@ -360,7 +360,7 @@ export class AnimalForm extends React.Component {
           </Table>
         </Form>): null}
         {this.animalFormNumberInput()}
-        <h4>{this.state.warning}</h4>
+        <HelpBlock>{this.state.warning}</HelpBlock>
         <Modal show={this.state.modalShow} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Add New Animals</Modal.Title>

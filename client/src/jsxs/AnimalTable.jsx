@@ -1,7 +1,7 @@
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import checkboxHOC from "react-table/lib/hoc/selectTable"
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Modal, HelpBlock } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getAnimals } from '../actions.js'
@@ -19,8 +19,7 @@ export class AnimalTable extends React.Component {
       selection: [],
       selectAll: false,
       redirect : false,
-      modalShow : false,
-      message : ""
+      modalShow : false
     }
   }
 
@@ -137,25 +136,37 @@ export class AnimalTable extends React.Component {
       redirect : true
     })
   }
-  
+
   deleteAnimal = () => {
     this.setState({
       modalShow : true
     })
   }
-  
+
   closeModal = () => {
     this.setState({
       modalShow: false
     })
   }
-  
+
   animalDelete = () => {
+    let deleteSelection = {}
+    for (let i = 0; i < this.state.selection.length; i ++) {
+      deleteSelection[this.state.selection[i]] = 1
+    }
+    let data = clone(this.state.data)
+    let currentData = []
+    data.forEach(animal => {
+      if (!(animal.id in deleteSelection)) {
+        currentData.push(animal)
+      }
+    })
     let selection = clone(this.state.selection)
     const userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
     axios.post('/submit/deleteanimals', {selection : selection, userId: userInfo.userId})
       .then(results => {
         this.setState({
+          data : currentData,
           message : "Selected animals were deleted",
           modalShow: false
         })
@@ -164,7 +175,7 @@ export class AnimalTable extends React.Component {
         console.log(err)
       })
   }
-  
+
   render() {
     const columns = [{
       Header: 'Animal #',
@@ -216,7 +227,7 @@ export class AnimalTable extends React.Component {
           <Button onClick={this.editAnimal}>EDIT</Button>
           <Button onClick={this.deleteAnimal}>DELETE</Button>
         </div>
-        <h3>{this.state.message}</h3>
+        <HelpBlock>{this.state.message}</HelpBlock>
         <Modal show={this.state.modalShow} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Delete Animals</Modal.Title>
