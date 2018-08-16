@@ -9,12 +9,14 @@ for (let i = 0; i < 50; i ++) {
   animalsBase.push({
     animalNumber : "",
     animalSpecies : "",
-    animalStrain : "C57/BL6",
+    animalStrain : "",
     animalGender : "",
     animalDOB : "",
     animalAge : "",
-    animalGeno : "PLD1KO",
-    animalNotes : ""
+    animalGeno : "",
+    animalNotes : "",
+    animalCage: "",
+    animalProject: ""
   })
 }
 
@@ -55,7 +57,7 @@ export class AnimalForm extends React.Component {
     let animalNumbers = {}
     let flag = true
     animals.forEach(animal => {
-      if (animal.animalNumber === "" || animal.animalSpecies === "" || animal.animalStrain === "" || animal.animalGender === "" || animal.animalDOB === "" || animal.animalGeno === "") {
+      if (animal.animalNumber === "" || animal.animalSpecies === "" || animal.animalStrain === "" || animal.animalGender === "" || animal.animalDOB === "" || animal.animalGeno === "" || animal.animalCage === "") {
         this.setState({
           warning: "Column with * can't be left blank"
         })
@@ -162,15 +164,15 @@ export class AnimalForm extends React.Component {
                 <FormControl type="number" value={this.state.animalFormNumberAdd} onChange={this.animalFormNumberChange} placeholder="Enter number" max="20" min="1"/>
               </Col>
               <Col sm={1}>
-                <Button bsStyle="primary" type="submit">ADD</Button>
+                <Button bsStyle="primary" type="submit">Add</Button>
               </Col>
               {this.state.showForm ? (
                 <div>
               <Col sm={1}>
-                <Button onClick={this.copyRow} bsStyle="primary">COPY</Button>
+                <Button onClick={this.copyRow} bsStyle="primary">Copy</Button>
               </Col>
               <Col sm={1}>
-                <Button onClick={this.showModal} bsStyle="success">SUBMIT</Button>
+                <Button onClick={this.showModal} bsStyle="success">Submit</Button>
               </Col>
               </div>
             ) : null}
@@ -201,11 +203,13 @@ export class AnimalForm extends React.Component {
       animals.push({
         animalNumber : "",
         animalSpecies : "",
-        animalStrain : "C57/BL6",
+        animalStrain : "",
         animalGender : "",
         animalDOB : "",
         animalAge : "",
-        animalGeno : "PLD1KO"
+        animalGeno : "",
+        animalCage: "",
+        animalProject: ""
       })
       let animalFormNumber = this.state.animalFormNumber - 1
       if (animalFormNumber === 0) {
@@ -246,6 +250,11 @@ export class AnimalForm extends React.Component {
     for (let i = 0; i < num; i ++) {
       rows.push(
         (<tr key={i}>
+            <td>
+              <FormGroup controlId="animalCageNumber">
+                  <FormControl type="text" value={this.state.animals[i].animalCage} onChange={ e => {this.eventHandler("animalCage", i, e)}} />
+              </FormGroup>
+            </td>
             <td>
               <FormGroup controlId="animalNumber">
                   <FormControl type="text" value={this.state.animals[i].animalNumber} onChange={ e => {this.eventHandler("animalNumber", i, e)}} />
@@ -292,12 +301,17 @@ export class AnimalForm extends React.Component {
               </FormGroup>
             </td>
             <td>
+            <FormGroup controlId="animalProject">
+                <FormControl type="text" value={this.state.animals[i].animalProject} onChange={ e => {this.eventHandler("animalProject", i, e)}} />
+            </FormGroup>
+            </td>
+            <td>
               <FormGroup controlId="animalNotes">
                 <FormControl componentClass="textarea" value={this.state.animals[i].animalNotes} onChange={ e => {this.eventHandler("animalNotes", i, e)}} />
               </FormGroup>
             </td>
             <td>
-              <FormGroup controlId="animalGeno">
+              <FormGroup controlId="animalDelete">
                 <Button bsStyle="danger" onClick={e => {this.deleteRow(i,e)}}>Delete</Button>
               </FormGroup>
             </td>
@@ -341,6 +355,7 @@ export class AnimalForm extends React.Component {
           <Table striped bordered condensed hover>
             <thead>
               <tr>
+                <th>*Cage #</th>
                 <th>*Animal #</th>
                 <th>*Species</th>
                 <th>*Strain</th>
@@ -348,6 +363,7 @@ export class AnimalForm extends React.Component {
                 <th>*Date Of Birth</th>
                 <th>Age (Weeks)</th>
                 <th>*Genotype</th>
+                <th>Project</th>
                 <th>Notes</th>
                 <th>{" "}</th>
               </tr>

@@ -120,27 +120,39 @@ export class AnimalTable extends React.Component {
   };
 
   editAnimal = () => {
-    let selection = {}
-    for (let i = 0; i < this.state.selection.length; i ++) {
-      selection[this.state.selection[i]] = 1
-    }
-    let data = clone(this.state.data)
-    let editAnimals = []
-    data.forEach(animal => {
-      if (animal.id in selection) {
-        editAnimals.push(animal)
+    if (this.state.selection.length > 0) {
+      let selection = {}
+      for (let i = 0; i < this.state.selection.length; i ++) {
+        selection[this.state.selection[i]] = 1
       }
-    })
-    this.props.getAnimals(editAnimals)
-    this.setState({
-      redirect : true
-    })
+      let data = clone(this.state.data)
+      let editAnimals = []
+      data.forEach(animal => {
+        if (animal.id in selection) {
+          editAnimals.push(animal)
+        }
+      })
+      this.props.getAnimals(editAnimals)
+      this.setState({
+        redirect : true
+      })
+    } else {
+      this.setState({
+        message : "Select animals first"
+      })
+    }
   }
 
   deleteAnimal = () => {
-    this.setState({
-      modalShow : true
+    if (this.state.selection.length > 0) {
+      this.setState({
+        modalShow : true
     })
+  } else {
+      this.setState({
+        message : "Select animals first"
+      })
+    }
   }
 
   closeModal = () => {
@@ -178,6 +190,9 @@ export class AnimalTable extends React.Component {
 
   render() {
     const columns = [{
+      Header: 'Cage #',
+      accessor: 'cage_number' // String-based value accessors!
+    },{
       Header: 'Animal #',
       accessor: 'tag' // String-based value accessors!
     }, {
@@ -204,6 +219,9 @@ export class AnimalTable extends React.Component {
       Header: 'Genotype',
       accessor: 'genotype'
     }, {
+      Header: 'Project',
+      accessor: 'project' // String-based value accessors!
+    },{
       Header: 'Comments',
       accessor: 'comments',
       filterable: false
@@ -223,9 +241,9 @@ export class AnimalTable extends React.Component {
             height: "500px"
           }} noDataText="No records found" filterable className="-striped -highlight" {...checkboxProps} />
         <div>
-          <Link to="/animals/new"><Button>ADD ANIMAL</Button></Link>
-          <Button onClick={this.editAnimal}>EDIT</Button>
-          <Button onClick={this.deleteAnimal}>DELETE</Button>
+          <Link to="/animals/new"><Button>Add Animal</Button></Link>
+          <Button onClick={this.editAnimal}>Edit</Button>
+          <Button onClick={this.deleteAnimal}>Delete</Button>
         </div>
         <HelpBlock>{this.state.message}</HelpBlock>
         <Modal show={this.state.modalShow} onHide={this.closeModal}>

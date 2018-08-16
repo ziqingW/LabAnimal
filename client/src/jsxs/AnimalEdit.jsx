@@ -76,6 +76,11 @@ export class AnimalEdit extends React.Component {
     this.state.animals.forEach((animal, i) => {
       rows.push(
         (<tr key={i}>
+          <td>
+            <FormGroup controlId="editCageNumber">
+                <FormControl type="text" value={this.state.animals[i].cage_number} onChange={ e => {this.eventHandler("cage_number", i, e)}} />
+            </FormGroup>
+          </td>
             <td>
               <FormGroup controlId="editanimalNumber">
                   <FormControl type="text" value={animal.tag} onChange={ e => {this.eventHandler("tag", i, e)}} />
@@ -122,6 +127,11 @@ export class AnimalEdit extends React.Component {
               </FormGroup>
             </td>
             <td>
+            <FormGroup controlId="editanimalProject">
+                <FormControl type="text" value={this.state.animals[i].project} onChange={ e => {this.eventHandler("project", i, e)}} />
+            </FormGroup>
+            </td>
+            <td>
               <FormGroup controlId="editanimalNotes">
                 <FormControl componentClass="textarea" value={animal.comments} onChange={ e => {this.eventHandler("comments", i, e)}} />
               </FormGroup>
@@ -154,7 +164,7 @@ export class AnimalEdit extends React.Component {
     let animalNumbers = {}
     let flag = true
     animals.forEach(animal => {
-      if (animal.tag === "" || animal.species === "" || animal.strain === "" || animal.gender === "" || animal.birthday === "" || animal.genotype === "") {
+      if (animal.tag === "" || animal.species === "" || animal.strain === "" || animal.gender === "" || animal.birthday === "" || animal.genotype === "" || animal.cage_number === "") {
         this.setState({
           message: "Column with * can't be left blank"
         })
@@ -200,6 +210,7 @@ export class AnimalEdit extends React.Component {
         <Table striped bordered condensed hover>
           <thead>
             <tr>
+              <th>*Cage #</th>
               <th>*Animal #</th>
               <th>*Species</th>
               <th>*Strain</th>
@@ -207,6 +218,7 @@ export class AnimalEdit extends React.Component {
               <th>*Date Of Birth</th>
               <th>Age (Weeks)</th>
               <th>*Genotype</th>
+              <th>Project</th>
               <th>Notes</th>
               <th>{" "}</th>
             </tr>

@@ -1,13 +1,13 @@
 import React from 'react'
 import {Navigation} from './Navigation.jsx'
-import {CageForm} from './CageForm.jsx'
+import {ProjectTable} from './ProjectTable.jsx'
 
-export class CagePage extends React.Component {
+export class ProjectPage extends React.Component {
   render () {
     return (
       <div>
         <Navigation />
-        <CageForm />
+        <ProjectTable />
       </div>
     )
   }

@@ -64,11 +64,13 @@ app.post('/submit/newanimals', function(req, resp, next) {
   let userId = req.body.userId
   submitAnimals.forEach(animal => {
     let tag = animal.animalNumber
+    let cage_number = animal.animalCage
     let genotype = animal.animalGeno
     let birthday = animal.animalDOB
     let gender = animal.animalGender
     let strain = animal.animalStrain
     let species = animal.animalSpecies
+    let project = animal.animalProject
     let comments = animal.animalNotes
     let q = "SELECT * FROM animals WHERE tag=${tag} and user_id=${userId}"
     db.query(q, {tag: tag, userId: userId})
@@ -76,8 +78,8 @@ app.post('/submit/newanimals', function(req, resp, next) {
         if(results.length > 0) {
           resp.json({message: "number"})
         } else {
-          q = "INSERT INTO animals VALUES (DEFAULT, ${tag}, ${genotype}, ${birthday}, ${gender}, ${strain}, ${species}, ${comments}, ${user_id})"
-          db.query(q, {tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments, user_id: userId})
+          q = "INSERT INTO animals VALUES (DEFAULT, ${tag}, ${genotype}, ${birthday}, ${gender}, ${strain}, ${species}, ${comments}, ${user_id}, ${project}, ${cage_number})"
+          db.query(q, {tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments, user_id: userId, project: project, cage_number: cage_number})
             .then(results => {
               resp.json({message: "OK"})
             })
@@ -111,11 +113,13 @@ app.post("/submit/editanimals", function(req, resp, next) {
   animals.forEach(animal => {
     let id = animal.id
     let tag = animal.tag
+    let cage_number = animal.animalCage
     let genotype = animal.genotype
     let birthday = animal.birthday
     let gender = animal.gender
     let strain = animal.strain
     let species = animal.species
+    let project = animal.animalProject
     let comments = animal.comments
     var q = "SELECT * FROM animals WHERE tag=${tag} AND user_id=${userId}"
     db.query(q, {tag: tag, userId: userId})
@@ -123,8 +127,8 @@ app.post("/submit/editanimals", function(req, resp, next) {
         if (results.length > 0 && results[0].id !== id) {
             resp.json({message: "number"})
           } else {
-            q = "UPDATE animals SET tag=${tag}, genotype=${genotype}, birthday=${birthday}, gender=${gender}, strain=${strain}, species=${species}, comments=${comments} WHERE id=${id} and user_id=${userId}"
-            db.query(q, {id: id, tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments, userId: userId})
+            q = "UPDATE animals SET tag=${tag}, genotype=${genotype}, birthday=${birthday}, gender=${gender}, strain=${strain}, species=${species}, comments=${comments}, cage_number=${cage_number}, project=${project} WHERE id=${id} and user_id=${userId}"
+            db.query(q, {id: id, tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments, userId: userId, cage_number: cage_number, project: project})
               .then(results => {
                 resp.json({message: "OK"})
               })

@@ -33,21 +33,28 @@ export class Navigation extends React.Component {
               </Navbar.Brand>
             </Navbar.Header>
             <Nav>
-              <NavItem eventKey={1} href="/main">SUMMARY</NavItem>
-              <NavItem eventKey={2} href="/animals">ANIMALS</NavItem>
+              <NavItem eventKey={1} href="/main">Summary</NavItem>
+              <NavItem eventKey={2} href="/animals">All Animals</NavItem>
+              <NavItem eventKey={3} href="/projects">Projects</NavItem>
             </Nav>
             <Nav pullRight>
-              <NavDropdown eventKey={3} title="USER" id="user-nav-dropdown">
-                <MenuItem eventKey={3.1}>Log Off</MenuItem>
-                <MenuItem eventKey={3.2} href="/user/password">Change Password</MenuItem>
+              <NavDropdown eventKey={4} title={"Hello "+ this.props.username.charAt(0).toUpperCase() + this.props.username.slice(1)} id="user-nav-dropdown">
+                <MenuItem eventKey={4.1}>Log Off</MenuItem>
+                <MenuItem eventKey={4.2} href="/user/password">Change Password</MenuItem>
                 <MenuItem divider />
-                <MenuItem eventKey={3.4} href="/user/delete">DELETE ACCOUNT</MenuItem>
+                <MenuItem eventKey={4.3} href="/user/delete"><b>DELETE ACCOUNT</b></MenuItem>
               </NavDropdown>
             </Nav>
           </Navbar>
       </div>)
     )
 }
+}
+
+function mapStateToProps(state) {
+    return {
+        username : state.username
+    }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -58,4 +65,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-Navigation = connect(null, mapDispatchToProps)(Navigation);
+Navigation = connect(mapStateToProps, mapDispatchToProps)(Navigation);
