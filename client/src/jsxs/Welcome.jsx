@@ -3,7 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getUser } from '../actions.js'
-import {FormGroup, ControlLabel, FormControl, HelpBlock, Button} from 'react-bootstrap'
+import {FormGroup, ControlLabel, FormControl, HelpBlock, Button, Form} from 'react-bootstrap'
 
 export class Welcome extends React.Component {
   constructor (props) {
@@ -141,7 +141,7 @@ export class Welcome extends React.Component {
 
   loginForm = () => {
       return (
-        <form onSubmit={this.loginSubmit}>
+        <Form onSubmit={this.loginSubmit}>
           <h3>LOGIN IN</h3>
           <FormGroup controlId="formLoginUsername">
             <ControlLabel>USERNAME</ControlLabel>
@@ -156,13 +156,13 @@ export class Welcome extends React.Component {
             <Button onClick={this.showSignForm}>NEW USER</Button>
             <Button bsStyle="primary" type="submit">OK</Button>
           </div>
-        </form>
+        </Form>
       )
   }
 
   signupForm = () => {
     return (
-      <form onSubmit={this.signSubmit}>
+      <Form onSubmit={this.signSubmit}>
         <h3>SIGN UP</h3>
         <FormGroup controlId="formSignUsername">
           <ControlLabel>USERNAME</ControlLabel>
@@ -181,7 +181,7 @@ export class Welcome extends React.Component {
           <Button onClick={this.showLoginForm}>RETURNED USER</Button>
           <Button bsStyle="primary" type="submit">SUBMIT</Button>
         </div>
-      </form>
+      </Form>
     )
   }
 

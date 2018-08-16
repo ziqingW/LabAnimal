@@ -8,6 +8,7 @@ import { ProjectPage } from './ProjectPage.jsx'
 import { AnimalPage } from './AnimalPage.jsx'
 import { AnimalNew } from './AnimalNew.jsx'
 import { AnimalEdit } from './AnimalEdit.jsx'
+import { ChangePassword } from './ChangePassword.jsx'
 
 class App extends React.Component{
   render () {
@@ -16,6 +17,7 @@ class App extends React.Component{
         <Provider store={store}>
           <Switch>
             <Route exact path="/" component={Welcome} />
+            <Route path="/user/password" component={ ChangePassword } />
             <Route path="/main" component={Main} />
             <Route exact path="/projects" component={ProjectPage} />
             <Route exact path="/animals" component={AnimalPage} />
