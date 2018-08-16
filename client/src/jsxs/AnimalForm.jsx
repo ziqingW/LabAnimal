@@ -384,4 +384,4 @@ function mapStateToProps(state) {
     }
 }
 
-AnimalForm = connect(mapStateToProps)(AnimalForm);
+AnimalForm = connect(mapStateToProps)(AnimalForm)

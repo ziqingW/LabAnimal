@@ -1,7 +1,7 @@
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import checkboxHOC from "react-table/lib/hoc/selectTable"
-import { Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getAnimals } from '../actions.js'
@@ -18,7 +18,9 @@ export class AnimalTable extends React.Component {
       message : "",
       selection: [],
       selectAll: false,
-      redirect : false
+      redirect : false,
+      modalShow : false,
+      message : ""
     }
   }
 
@@ -135,7 +137,34 @@ export class AnimalTable extends React.Component {
       redirect : true
     })
   }
-
+  
+  deleteAnimal = () => {
+    this.setState({
+      modalShow : true
+    })
+  }
+  
+  closeModal = () => {
+    this.setState({
+      modalShow: false
+    })
+  }
+  
+  animalDelete = () => {
+    let selection = clone(this.state.selection)
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
+    axios.post('/submit/deleteanimals', {selection : selection, userId: userInfo.userId})
+      .then(results => {
+        this.setState({
+          message : "Selected animals were deleted",
+          modalShow: false
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+  
   render() {
     const columns = [{
       Header: 'Animal #',
@@ -183,9 +212,23 @@ export class AnimalTable extends React.Component {
             height: "500px"
           }} noDataText="No records found" filterable className="-striped -highlight" {...checkboxProps} />
         <div>
-          <Button><Link to="/animals/new">ADD ANIMAL</Link></Button>
+          <Link to="/animals/new"><Button>ADD ANIMAL</Button></Link>
           <Button onClick={this.editAnimal}>EDIT</Button>
+          <Button onClick={this.deleteAnimal}>DELETE</Button>
         </div>
+        <h3>{this.state.message}</h3>
+        <Modal show={this.state.modalShow} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Animals</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h3>Are you sure to delete these animals?</h3>
+            <div>
+              <Button onClick={this.animalDelete}>YES</Button>
+              <Button onClick={this.closeModal}>NO</Button>
+            </div>
+          </Modal.Body>
+        </Modal>
       </div>))
   }
 }

@@ -62,7 +62,6 @@ app.post('/signup', function (req, resp, next) {
 app.post('/submit/newanimals', function(req, resp, next) {
   let submitAnimals = clone(req.body.submitAnimals)
   let userId = req.body.userId
-  console.log(userId)
   submitAnimals.forEach(animal => {
     let tag = animal.animalNumber
     let genotype = animal.animalGeno
@@ -88,6 +87,21 @@ app.post('/submit/newanimals', function(req, resp, next) {
         }
       })
       .catch(next)
+  })
+})
+
+app.post('/submit/deleteanimals', function(req, resp, next) {
+  let selection = req.body.selection
+  let userId = req.body.userId
+  selection.forEach(id => {
+    let q = "DELETE FROM animals WHERE id=${id} and user_id=${userId}"
+    db.query(q, {id: id, userId: userId})
+      .then(results => {
+        resp.json({message: "deleted"})
+      })
+      .catch(err => {
+        console.log(err)
+      })
   })
 })
 
