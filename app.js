@@ -63,11 +63,11 @@ app.post("/submit/newpassword", function(req, resp, next) {
   let userId = req.body.userId
   let oldPassword = req.body.oldPassword
   let newPassword = req.body.newPassword
-  let q = "SELECT * FROM users WHERE password=${password} AND user_id=${userId}"
+  let q = "SELECT * FROM users WHERE password=${password} AND id=${userId}"
   db.query(q, {password: oldPassword, userId: userId})
     .then(results => {
       if(results.length > 0) {
-        q = "UPDATE users SET password=${newPassword} WHERE user_id=${userId}"
+        q = "UPDATE users SET password=${newPassword} WHERE id=${userId}"
         db.query(q, {newPassword: newPassword, userId: userId})
           .then(results => {
             resp.json({message: "OK"})

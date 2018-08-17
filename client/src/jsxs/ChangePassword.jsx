@@ -2,7 +2,6 @@ import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { getUser } from '../actions.js'
 import {FormGroup, ControlLabel, FormControl, HelpBlock, Button, Form} from 'react-bootstrap'
 import { Navigation } from './Navigation.jsx'
 
@@ -17,7 +16,7 @@ export class ChangePassword extends React.Component {
       redirect : false
     }
   }
-  
+
   handlerInput = (tag, e) => {
     let tagValue = e.target.value
     this.setState({
@@ -25,27 +24,40 @@ export class ChangePassword extends React.Component {
       message : ""
     })
   }
-  
+
   changePWValid = tag => {
-    let value = this.state.tag
-    if ( value >= 8) {
-      return "success"
-    } else if ( value > 4) {
-      return "warning"
+    let value = this.state[tag]
+    if(value) {
+      if ( value.length >= 8) {
+        return "success"
+      } else if ( value.length > 4) {
+        return "warning"
+      } else {
+        return "error"
+      }
     } else {
-      return "error"
+      return null
     }
   }
-  
+
   changePWSubmit = e => {
     e.preventDefault()
     let userId = this.props.userId
     let oldPassword = this.state.oldPassword
     let newPassword = this.state.newPassword
     let re_newPassword = this.state.re_newPassword
+    if (oldPassword === "" || newPassword === "" || re_newPassword === "") {
+      this.setState({
+        message : "Password can't be left blank"
+      })
+    } else if (newPassword.length < 8 || re_newPassword.length < 8){
+      this.setState({
+        message : "Password can't be shorter than 8"
+      })
+    } else {
     if (newPassword !== re_newPassword) {
       this.setState({
-        message : "New password not consistent",
+        message : "New password is not consistent",
         newPassword : "",
         re_newPassword : ""
       })
@@ -62,7 +74,7 @@ export class ChangePassword extends React.Component {
               oldPassword : "",
               newPassword : "",
               re_newPassword : "",
-              message : "Password updated successfully"
+              message : "Password was updated successfully"
             }, function() {
               this.delay = setInterval(() => {
               this.setState({
@@ -72,13 +84,14 @@ export class ChangePassword extends React.Component {
             })
           }
         })
+      }
     }
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.delay)
   }
-    
+
   render () {
     return ( this.state.redirect ? <Redirect to="/main" /> :
       (<div>
@@ -89,13 +102,13 @@ export class ChangePassword extends React.Component {
           <ControlLabel>Old Password</ControlLabel>
           <FormControl type="password" value={this.state.oldPassword} onChange={e => {this.handlerInput("oldPassword", e)}} />
         </FormGroup>
-        <FormGroup controlId="newPassword">
+        <FormGroup controlId="newPassword" validationState={this.changePWValid("newPassword")}>
           <ControlLabel>New Password</ControlLabel>
-          <FormControl type="password" value={this.state.newPassword} placeholder="Password must be longer than 8 characters" onChange={e => {this.handlerInput("newPassword", e)}}  validationState={this.changePWValid("newPassword")} />
+          <FormControl type="password" value={this.state.newPassword} placeholder="Password can't be shorter than 8 characters" onChange={e => {this.handlerInput("newPassword", e)}} />
         </FormGroup>
-        <FormGroup controlId="reNewRepassword">
+        <FormGroup controlId="reNewRepassword" validationState={this.changePWValid("re_newPassword")}>
           <ControlLabel>Re-Enter New Password</ControlLabel>
-          <FormControl type="password" value={this.state.re_newPassword} placeholder="Password must be longer than 8 characters" onChange={e => {this.handlerInput("re_newPassword", e)}}  validationState={this.changePWValid("re_newPassword")} />
+          <FormControl type="password" value={this.state.re_newPassword} placeholder="Password can't be shorter than 8 characters" onChange={e => {this.handlerInput("re_newPassword", e)}} />
         </FormGroup>
         <HelpBlock>{this.state.message}</HelpBlock>
         <div>

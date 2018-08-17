@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Modal, HelpBlock } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Modal, HelpBlock, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getUser } from '../actions.js'
@@ -25,25 +25,28 @@ export class Navigation extends React.Component {
       this.props.getUser(userInfo)
     }
   }
-  
+
   logOff = () => {
     sessionStorage.removeItem("userInfo")
-    let userInfo = {username: '', userId: 0}
+    let userInfo = JSON.stringify({username: '', userId: 0})
     this.props.getUser(userInfo)
+    this.setState({
+      redirect : true
+    })
   }
-  
+
   deleteAccountModal = () => {
     this.setState({
       modalShow : true
     })
   }
-  
+
   closeModal = () => {
     this.setState({
       modalShow : false
-    })  
+    })
   }
-  
+
   deleteAccount =() => {
     let userInfo = clone(sessionStorage.getItem("userInfo"))
     this.logOff()
@@ -55,7 +58,7 @@ export class Navigation extends React.Component {
         console.log(err)
       })
   }
-  
+
   render() {
     return (this.state.redirect ? <Redirect to="/" />
       :(<div>
