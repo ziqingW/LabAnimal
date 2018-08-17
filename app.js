@@ -185,6 +185,18 @@ app.post("/table/animals", function(req,resp,next) {
     .catch(next)
 })
 
+app.post("/table/projects", function(req, resp, next) {
+  let userId = req.body.userId
+  let q = "SELECT * FROM animals WHERE user_id=${userId}"
+  db.query(q, {userId: userId})
+    .then(results => {
+      resp.json({
+        data : results
+      })
+    })
+    .catch (next)
+})
+
 app.get(/^\/.*/, function (req, res) {
   res.sendFile(path.join(__dirname, './client/build', 'index.html'));
 });
