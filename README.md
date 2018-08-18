@@ -13,7 +13,7 @@ However, with the help of **LAMP**, the management of lab animals can be easy, f
 ## Stretch Features
 - [X] Support multiple animal species
 - [X] User can create, delete or edit projects with particular animals in cages
-- [ ] User can check the ongoing or historical projects with the animals in group
+- [X] User can check the ongoing or historical projects with the animals in group
 - [X] Sorting by animal id, DOB and the other conditions
 - [ ] Statistical summary for total animal numbers, total cost and total projects
 ___
@@ -36,3 +36,4 @@ Cage/Animal <img src="readmePics/CageAnimalPanel.png" alt="Cage" width="180px"/>
   - However, the critical part is do decide when and how the new form-rows are created and rendered. After multiple try, finally I created a function to make a list to load the new created DOM, and call the function in multiple situations to re-render the whole table with updated value (e.g. "ADD" button-onClick; "DELETE" button-onClick)
   - In order to make that the updated value in new form-rows can be appropriately displayed, I added the related index and key name of onChanged form for React to locate the children-form which had value changed. Such function was wrapped in componentDidUpdate to make sure the render was at the right time.
 - 08/12 ~ 08/15/2018, created tables for animals by which user can add, edit, delete, sort and search interested animals using react-table.
+- 08/16 ~ 08/17/2018, finished the page for project demonstration, which is a table with sub-table with sub-sub-table.
