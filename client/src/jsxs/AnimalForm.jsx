@@ -16,7 +16,8 @@ for (let i = 0; i < 50; i ++) {
     animalGeno : "",
     animalNotes : "",
     animalCage: "",
-    animalProject: ""
+    animalProject: "",
+    creation_date: ""
   })
 }
 
@@ -56,7 +57,9 @@ export class AnimalForm extends React.Component {
     animals = animals.slice(0,animalFormNumber)
     let animalNumbers = {}
     let flag = true
+    let today = new Date()
     animals.forEach(animal => {
+      animal.creation_date = today
       if (animal.animalNumber === "" || animal.animalSpecies === "" || animal.animalStrain === "" || animal.animalGender === "" || animal.animalDOB === "" || animal.animalGeno === "" || animal.animalCage === "") {
         this.setState({
           warning: "Column with * can't be left blank"

@@ -1,29 +1,47 @@
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import checkboxHOC from "react-table/lib/hoc/selectTable"
-import { Button, Modal, HelpBlock } from 'react-bootstrap'
-import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getAnimals } from '../actions.js'
 import React from 'react'
 import axios from 'axios'
 const clone = require('clone')
-const CheckboxTable = checkboxHOC(ReactTable)
 
 export class ProjectTable extends React.Component {
   constructor (props) {
-    axios.post("/table/projects", {userId: this.props.userId})
+    super(props)
+    this.state = {
+      data : []
+    }
+  }
+
+  componentDidMount = () => {
+    this.getData()
+  }
+
+  getData = () => {
+    let userId = JSON.parse(sessionStorage.getItem("userInfo")).userId
+    axios.post("/table/projects", {userId: userId})
       .then(results => {
         let data = clone(results.data.data)
-        this.state = {
+        data.forEach(animal => {
+          let dob = animal.birthday.split("T")[0]
+          let creation_date = animal.creation_date.split("T")[0]
+          animal.birthday = dob
+          animal.creation_date = creation_date
+          let today = new Date()
+          dob = new Date(dob)
+          let timeDiff = today.getTime() - dob.getTime()
+          let diffWks = (timeDiff/(1000*3600*24*7)).toFixed(1)
+          animal.age = diffWks
+        })
+        this.setState({
           data : data
-        }
+        })
       })
       .catch (err => {
         console.log(err)
       })
   }
-  
+
   makeProjectData = () => {
     let data = clone(this.state.data)
     let projectData = {}
@@ -31,7 +49,7 @@ export class ProjectTable extends React.Component {
       if (!(animal.project in projectData)) {
         projectData[animal.project] = {
           projectName : animal.project,
-          species : animal.speices,
+          species : animal.species,
           animalNumber : 1,
           creation_date : animal.creation_date
         }
@@ -41,7 +59,7 @@ export class ProjectTable extends React.Component {
     })
     return Object.values(projectData)
   }
-  
+
   makeCageData = project => {
     let data = clone(this.state.data)
     let cageData = {}
@@ -53,13 +71,13 @@ export class ProjectTable extends React.Component {
             animalNumber : 1
           }
         } else {
-        cageData[animal.project].animalNumber += 1
+        cageData[animal.cage_number].animalNumber += 1
       }
-      } 
+      }
     })
     return Object.values(cageData)
   }
-  
+
   makeAnimalData = cage => {
     let data = clone(this.state.data)
     let animalData = []
@@ -70,7 +88,7 @@ export class ProjectTable extends React.Component {
     })
     return animalData
   }
-  
+
   render () {
     const columnsProject = [{
       Header: 'Project Name',
@@ -82,20 +100,18 @@ export class ProjectTable extends React.Component {
       Header: 'Creation Date',
       accessor: 'creation_date'
     }, {
-      Header: 'Animal numbers',
+      Header: 'Animal numbers/Total',
       accessor: 'animalNumber',
       filterable: false
     }]
-    
     const columnsCage = [{
       Header: 'Cage #',
       accessor: 'cage_number'
     }, {
-      Header: 'Animal numbers',
-      accessor: 'animalNumber_cage',
+      Header: 'Animal numbers/Cage',
+      accessor: 'animalNumber',
       filterable: false
     }]
-    
     const columnsAnimal = [{
       Header: 'Animal #',
       accessor: 'tag' // String-based value accessors!
@@ -125,13 +141,42 @@ export class ProjectTable extends React.Component {
       accessor: 'comments',
       filterable: false
     }]
-    
-    // const dataProject = this.makeProjectData()
-    // const dataCage = this.makeCageData()
-    // const dataAnimal = this.makeAnimalData()
-    
+    const dataProject = this.makeProjectData()
     return (
-      <div></div>
+      <div>
+        <ReactTable
+          data={dataProject}
+          columns={columnsProject} className="-striped -highlight"
+          defaultPageSize={10} filterable
+          SubComponent={row => {
+            return (
+              <div style={{ padding: "20px" }}>
+                <br />
+                <ReactTable
+                  data={this.makeCageData(row.original.projectName)}
+                  columns={columnsCage}
+                  defaultPageSize={5}
+                  SubComponent={row => {
+                    return (
+                      <div style={{ padding: "20px" }}>
+                        <ReactTable data={this.makeAnimalData(row.original.cage_number)}
+                          columns={columnsAnimal} defaultPageSize={5} showPagination={false} />
+                      </div>
+                    )
+                  }}/>
+              </div>
+            )
+          }}
+          />
+      </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        userId : state.userId
+    }
+}
+
+ProjectTable = connect(mapStateToProps)(ProjectTable)

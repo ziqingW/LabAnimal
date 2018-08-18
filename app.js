@@ -102,14 +102,15 @@ app.post('/submit/newanimals', function(req, resp, next) {
     let species = animal.animalSpecies
     let project = animal.animalProject
     let comments = animal.animalNotes
+    let creation_date = animal.creation_date
     let q = "SELECT * FROM animals WHERE tag=${tag} and user_id=${userId}"
     db.query(q, {tag: tag, userId: userId})
       .then(results => {
         if(results.length > 0) {
           resp.json({message: "number"})
         } else {
-          q = "INSERT INTO animals VALUES (DEFAULT, ${tag}, ${genotype}, ${birthday}, ${gender}, ${strain}, ${species}, ${comments}, ${user_id}, ${project}, ${cage_number})"
-          db.query(q, {tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments, user_id: userId, project: project, cage_number: cage_number})
+          q = "INSERT INTO animals VALUES (DEFAULT, ${tag}, ${genotype}, ${birthday}, ${gender}, ${strain}, ${species}, ${comments}, ${user_id}, ${project}, ${cage_number}, ${creation_date})"
+          db.query(q, {tag: tag, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, comments: comments, user_id: userId, project: project, cage_number: cage_number, creation_date: creation_date})
             .then(results => {
               resp.json({message: "OK"})
             })
