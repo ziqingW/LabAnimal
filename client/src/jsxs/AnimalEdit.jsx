@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navigation } from './Navigation.jsx'
+import { Footer } from './Footer.jsx'
 import { Link, Redirect } from 'react-router-dom'
 import {FormGroup, FormControl, Button, Table, HelpBlock} from 'react-bootstrap'
 import { connect } from 'react-redux'
@@ -233,8 +234,11 @@ export class AnimalEdit extends React.Component {
           <Link to="/animals"><Button>Cancel</Button></Link>
           <Button onClick={this.editAnimals}>OK</Button>
         </div>
-        <HelpBlock>Column with * can't be left blank</HelpBlock>
-        <HelpBlock>{this.state.message}</HelpBlock>
+        <div>
+          <HelpBlock>Column with * can't be left blank</HelpBlock>
+          <HelpBlock>{this.state.message}</HelpBlock>
+        </div>
+        <Footer />
       </div>)
     )
   }

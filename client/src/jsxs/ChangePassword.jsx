@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import {FormGroup, ControlLabel, FormControl, HelpBlock, Button, Form} from 'react-bootstrap'
 import { Navigation } from './Navigation.jsx'
+import { Footer } from './Footer.jsx'
 
 export class ChangePassword extends React.Component {
   constructor (props) {
@@ -115,6 +116,7 @@ export class ChangePassword extends React.Component {
           <Button bsStyle="success" type="submit">Submit</Button>
         </div>
       </Form>
+      <Footer />
       </div>)
       )
   }

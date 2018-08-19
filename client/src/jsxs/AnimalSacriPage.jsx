@@ -3,6 +3,7 @@ import 'react-table/react-table.css'
 import React from 'react'
 import axios from 'axios'
 import { Navigation } from './Navigation.jsx'
+import { Footer } from './Footer.jsx'
 const clone = require('clone')
 
 export class AnimalSacriPage extends React.Component {
@@ -73,6 +74,7 @@ export class AnimalSacriPage extends React.Component {
         <ReactTable data={this.state.data} columns={columns} defaultPageSize={10} style={{
         height: "500px"
       }} noDataText="No records found" filterable className="-striped -highlight" />
+        <Footer />
       </div>
     )
   }
