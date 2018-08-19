@@ -19,7 +19,8 @@ export class AnimalTable extends React.Component {
       selection: [],
       selectAll: false,
       redirect : false,
-      modalShow : false
+      modalShow_del : false,
+      modalShow_sacri : false
     }
   }
 
@@ -146,7 +147,7 @@ export class AnimalTable extends React.Component {
   deleteAnimal = () => {
     if (this.state.selection.length > 0) {
       this.setState({
-        modalShow : true
+        modalShow_del : true
     })
   } else {
       this.setState({
@@ -157,7 +158,8 @@ export class AnimalTable extends React.Component {
 
   closeModal = () => {
     this.setState({
-      modalShow: false
+      modalShow_del: false,
+      modalShow_sacri : false
     })
   }
 
@@ -180,7 +182,7 @@ export class AnimalTable extends React.Component {
         this.setState({
           data : currentData,
           message : "Selected animals were deleted",
-          modalShow: false
+          modalShow_del: false
         })
       })
       .catch(err => {
@@ -188,6 +190,16 @@ export class AnimalTable extends React.Component {
       })
   }
 
+  sacriAnimal = () => {
+    this.setState({
+      modalShow_sacri : true
+    })
+  }
+
+  animalSacri = () => {
+
+  }
+  
   render() {
     const columns = [{
       Header: 'Cage #',
@@ -244,9 +256,10 @@ export class AnimalTable extends React.Component {
           <Link to="/animals/new"><Button>Add Animal</Button></Link>
           <Button onClick={this.editAnimal}>Edit</Button>
           <Button onClick={this.deleteAnimal}>Delete</Button>
+          <Button onClick={this.sacriAnimal}>Sacriface</Button>
         </div>
         <HelpBlock>{this.state.message}</HelpBlock>
-        <Modal show={this.state.modalShow} onHide={this.closeModal}>
+        <Modal show={this.state.modalShow_del} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Delete Animals</Modal.Title>
           </Modal.Header>
@@ -254,6 +267,18 @@ export class AnimalTable extends React.Component {
             <h3>Are you sure to delete these animals?</h3>
             <div>
               <Button onClick={this.animalDelete}>YES</Button>
+              <Button onClick={this.closeModal}>NO</Button>
+            </div>
+          </Modal.Body>
+        </Modal>
+        <Modal show={this.state.modalShow_sacri} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Sacriface Animals</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h3>Are you sure to sacriface these animals?</h3>
+            <div>
+              <Button onClick={this.animalSacri}>YES</Button>
               <Button onClick={this.closeModal}>NO</Button>
             </div>
           </Modal.Body>

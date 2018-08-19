@@ -63,11 +63,13 @@ export class Navigation extends React.Component {
     return (this.state.redirect ? <Redirect to="/" />
       :(<div>
         <h2>Lab Animal Management Platform</h2>
-          <Navbar>
+          <Navbar inverse collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
               </Navbar.Brand>
+              <Navbar.Toggle />
             </Navbar.Header>
+            <Navbar.Collapse>
             <Nav>
               <NavItem eventKey={1} href="/main">Summary</NavItem>
               <NavItem eventKey={2} href="/animals">All Animals</NavItem>
@@ -81,6 +83,7 @@ export class Navigation extends React.Component {
                 <MenuItem eventKey={4.3} onClick={this.deleteAccountModal}><b>DELETE ACCOUNT</b></MenuItem>
               </NavDropdown>
             </Nav>
+            </Navbar.Collapse>
           </Navbar>
           <Modal show={this.state.modalShow} onHide={this.closeModal}>
             <Modal.Header closeButton>

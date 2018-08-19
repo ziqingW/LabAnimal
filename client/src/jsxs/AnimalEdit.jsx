@@ -78,7 +78,7 @@ export class AnimalEdit extends React.Component {
         (<tr key={i}>
           <td>
             <FormGroup controlId="editCageNumber">
-                <FormControl type="text" value={this.state.animals[i].cage_number} onChange={ e => {this.eventHandler("cage_number", i, e)}} />
+                <FormControl type="text" value={animal.cage_number} onChange={ e => {this.eventHandler("cage_number", i, e)}} />
             </FormGroup>
           </td>
             <td>
@@ -128,7 +128,7 @@ export class AnimalEdit extends React.Component {
             </td>
             <td>
             <FormGroup controlId="editanimalProject">
-                <FormControl type="text" value={this.state.animals[i].project} onChange={ e => {this.eventHandler("project", i, e)}} />
+                <FormControl type="text" value={animal.project} onChange={ e => {this.eventHandler("project", i, e)}} />
             </FormGroup>
             </td>
             <td>
@@ -230,7 +230,7 @@ export class AnimalEdit extends React.Component {
           </tbody>
         </Table>
         <div>
-          <Link to="/animals"><Button>CANCEL</Button></Link>
+          <Link to="/animals"><Button>Cancel</Button></Link>
           <Button onClick={this.editAnimals}>OK</Button>
         </div>
         <HelpBlock>Column with * can't be left blank</HelpBlock>

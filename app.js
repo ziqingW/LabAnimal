@@ -144,13 +144,13 @@ app.post("/submit/editanimals", function(req, resp, next) {
   animals.forEach(animal => {
     let id = animal.id
     let tag = animal.tag
-    let cage_number = animal.animalCage
+    let cage_number = animal.cage_number
     let genotype = animal.genotype
     let birthday = animal.birthday
     let gender = animal.gender
     let strain = animal.strain
     let species = animal.species
-    let project = animal.animalProject
+    let project = animal.project
     let comments = animal.comments
     var q = "SELECT * FROM animals WHERE tag=${tag} AND user_id=${userId}"
     db.query(q, {tag: tag, userId: userId})
