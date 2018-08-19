@@ -72,7 +72,10 @@ export class Navigation extends React.Component {
             <Navbar.Collapse>
             <Nav>
               <NavItem eventKey={1} href="/main">Summary</NavItem>
-              <NavItem eventKey={2} href="/animals">All Animals</NavItem>
+              <NavDropdown eventKey={2} title={"Animals"} id="animal-nav-dropdown">
+                <MenuItem eventKey={2.1} href="/animals">Current Animals</MenuItem>
+                <MenuItem eventKey={2.2} href="/animals/sacrifaced">Sacrifaced Animals</MenuItem>
+              </NavDropdown>
               <NavItem eventKey={3} href="/projects">Projects</NavItem>
             </Nav>
             <Nav pullRight>

@@ -138,6 +138,34 @@ app.post('/submit/deleteanimals', function(req, resp, next) {
   })
 })
 
+app.post('/submit/sacrianimal', function(req, resp, next) {
+  let userId = req.body.userId
+  let sacriData = req.body.sacriData
+  sacriData.forEach(animal => {
+    let id = animal.id
+    let tag = animal.tag
+    let user_id = animal.user_id
+    let cage_number = animal.cage_number
+    let genotype = animal.genotype
+    let birthday = animal.birthday
+    let gender = animal.gender
+    let strain = animal.strain
+    let species = animal.species
+    let project = animal.project
+    let death_date = animal.death_date
+    let q = "INSERT INTO sacrifaced_animal VALUES (DEFAULT, ${animal_id}, ${animal_tag}, ${user_id}, ${genotype}, ${birthday}, ${gender}, ${strain}, ${species}, ${project}, ${cage_number}, ${death_date})"
+    db.query(q, {animal_id: id, animal_tag: tag, user_id: user_id, genotype: genotype, birthday: birthday, gender: gender, strain: strain, species: species, project: project, cage_number: cage_number, death_date: death_date})
+      .then(results => {
+        q = "DELETE FROM animals WHERE id=${id}"
+        db.query(q, {id: id})
+          .then(results => {
+            resp.json({message: "sacrifaced"})
+          })
+      })
+      .catch(next)
+  })
+})
+
 app.post("/submit/editanimals", function(req, resp, next) {
   let animals = clone(req.body.animals)
   let userId = req.body.userId
@@ -196,6 +224,18 @@ app.post("/table/projects", function(req, resp, next) {
       })
     })
     .catch (next)
+})
+
+app.post('/table/sacrifaced', function(req, resp, next) {
+  let userId = req.body.userId
+  let q = "SELECT * FROM sacrifaced_animal WHERE user_id=${userId}"
+  db.query(q, {userId: userId})
+    .then(results => {
+      resp.json({
+        data : results
+      })
+    })
+    .catch(next)
 })
 
 app.get(/^\/.*/, function (req, res) {

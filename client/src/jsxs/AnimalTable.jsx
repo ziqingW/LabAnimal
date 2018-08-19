@@ -197,9 +197,39 @@ export class AnimalTable extends React.Component {
   }
 
   animalSacri = () => {
-
+    let sacriSelection = {}
+    for (let i = 0; i < this.state.selection.length; i ++) {
+      sacriSelection[this.state.selection[i]] = 1
+    }
+    let data = clone(this.state.data)
+    let sacriData = []
+    let today = new Date()
+    data.forEach(animal => {
+      if (animal.id in sacriSelection) {
+        animal.death_date = today
+        sacriData.push(animal)
+      }
+    })
+    let currentData = []
+    data.forEach(animal => {
+      if (!(animal.id in sacriSelection)) {
+        currentData.push(animal)
+      }
+    })
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
+    axios.post('/submit/sacrianimal', {sacriData: sacriData, userId: userInfo.userId})
+      .then(results => {
+        this.setState({
+          data : currentData,
+          modalShow_sacri : false,
+          message : "Selected animals were sacrifaced"
+        })
+      })
+      .catch (err => {
+        console.log(err)
+      })
   }
-  
+
   render() {
     const columns = [{
       Header: 'Cage #',
