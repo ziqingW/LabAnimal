@@ -3,7 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getUser } from '../actions.js'
-import {FormGroup, ControlLabel, FormControl, HelpBlock, Button, Form} from 'react-bootstrap'
+import {FormGroup, ControlLabel, FormControl, HelpBlock, Button, Form, Image} from 'react-bootstrap'
 
 export class Welcome extends React.Component {
   constructor (props) {
@@ -141,7 +141,12 @@ export class Welcome extends React.Component {
 
   loginForm = () => {
       return (
-        <Form onSubmit={this.loginSubmit}>
+        <div className="welcome-form-wrap">
+          <div className="welcome-titles">
+            <h1>Welcome to LAMP</h1>
+            <h4><i>&#9866; Lab Animal Management Platform</i></h4>
+          </div>
+        <Form className="welcome-form" onSubmit={this.loginSubmit}>
           <h3>LOGIN IN</h3>
           <FormGroup controlId="formLoginUsername">
             <ControlLabel>USERNAME</ControlLabel>
@@ -152,17 +157,24 @@ export class Welcome extends React.Component {
             <FormControl type="password" value={this.state.password} onChange={this.passwordInput} />
           </FormGroup>
           <HelpBlock>{this.state.message}</HelpBlock>
-          <div>
+          <div className="welcome-buttons">
             <Button onClick={this.showSignForm}>NEW USER</Button>
             <Button bsStyle="primary" type="submit">OK</Button>
           </div>
         </Form>
+        <Image src={require("../images/labBackground.png")} responsive rounded/>
+        </div>
       )
   }
 
   signupForm = () => {
     return (
-      <Form onSubmit={this.signSubmit}>
+      <div className="welcome-form-wrap">
+        <div className="welcome-titles">
+          <h1>Welcome to LAMP</h1>
+          <h4><i>&#9866; Lab Animal Management Platform</i></h4>
+        </div>
+      <Form className="welcome-form" onSubmit={this.signSubmit}>
         <h3>SIGN UP</h3>
         <FormGroup controlId="formSignUsername">
           <ControlLabel>USERNAME</ControlLabel>
@@ -177,11 +189,13 @@ export class Welcome extends React.Component {
           <FormControl type="password" value={this.state.rePassword} placeholder="Password must be longer than 8 characters" onChange={this.rePasswordInput} />
         </FormGroup>
         <HelpBlock>{this.state.message}</HelpBlock>
-        <div>
+        <div className="welcome-buttons">
           <Button onClick={this.showLoginForm}>RETURNED USER</Button>
           <Button bsStyle="primary" type="submit">SUBMIT</Button>
         </div>
       </Form>
+      <Image src={require("../images/labBackground.png")} responsive rounded/>
+      </div>
     )
   }
 

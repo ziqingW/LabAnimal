@@ -2,7 +2,6 @@ import React from 'react'
 import { Navigation } from './Navigation.jsx'
 import { Footer } from './Footer.jsx'
 import ReactHighcharts from 'react-highcharts'
-import { connect } from 'react-redux'
 import axios from 'axios'
 const clone = require('clone')
 
