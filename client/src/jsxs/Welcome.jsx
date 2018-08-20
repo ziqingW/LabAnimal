@@ -111,7 +111,7 @@ export class Welcome extends React.Component {
       })
     } else if (password.length < 8){
       this.setState({
-        message : "Password can't be shorter than 8",
+        message : "Password can't be shorter than 8 characters",
         password : "",
         rePassword : ""
       })
@@ -147,16 +147,16 @@ export class Welcome extends React.Component {
             <h4><i>&#9866; Lab Animal Management Platform</i></h4>
           </div>
         <Form className="welcome-form" onSubmit={this.loginSubmit}>
-          <h3>LOGIN IN</h3>
+          <h3>Login In</h3>
           <FormGroup controlId="formLoginUsername">
-            <ControlLabel>USERNAME</ControlLabel>
+            <ControlLabel>Username</ControlLabel>
             <FormControl type="text" value={this.state.username} onChange={this.usernameInput} />
           </FormGroup>
           <FormGroup controlId="formLoginPassword">
-            <ControlLabel>PASSWORD</ControlLabel>
+            <ControlLabel>Password</ControlLabel>
             <FormControl type="password" value={this.state.password} onChange={this.passwordInput} />
           </FormGroup>
-          <HelpBlock>{this.state.message}</HelpBlock>
+          <HelpBlock className="welcome-warning">{this.state.message}</HelpBlock>
           <div className="welcome-buttons">
             <Button onClick={this.showSignForm}>NEW USER</Button>
             <Button bsStyle="primary" type="submit">OK</Button>
@@ -175,20 +175,20 @@ export class Welcome extends React.Component {
           <h4><i>&#9866; Lab Animal Management Platform</i></h4>
         </div>
       <Form className="welcome-form" onSubmit={this.signSubmit}>
-        <h3>SIGN UP</h3>
+        <h3>Sign Up</h3>
         <FormGroup controlId="formSignUsername">
-          <ControlLabel>USERNAME</ControlLabel>
+          <ControlLabel>Username</ControlLabel>
           <FormControl type="text" value={this.state.username} onChange={this.usernameInput} />
         </FormGroup>
         <FormGroup controlId="formSignPassword">
-          <ControlLabel>PASSWORD</ControlLabel>
+          <ControlLabel>Password</ControlLabel>
           <FormControl type="password" value={this.state.password} placeholder="Password must be longer than 8 characters" onChange={this.passwordInput} />
         </FormGroup>
         <FormGroup controlId="formSignRepassword">
-          <ControlLabel>Re-Enter PASSWORD</ControlLabel>
+          <ControlLabel>Re-Enter Password</ControlLabel>
           <FormControl type="password" value={this.state.rePassword} placeholder="Password must be longer than 8 characters" onChange={this.rePasswordInput} />
         </FormGroup>
-        <HelpBlock>{this.state.message}</HelpBlock>
+        <HelpBlock className="welcome-warning">{this.state.message}</HelpBlock>
         <div className="welcome-buttons">
           <Button onClick={this.showLoginForm}>RETURNED USER</Button>
           <Button bsStyle="primary" type="submit">SUBMIT</Button>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One|Baloo+Bhai');
+
 body {
   width: 100%;
 }
@@ -20,6 +22,7 @@ body {
 }
 .welcome-titles h1 {
   text-align: center;
+  font-family: 'Fredoka One', cursive;
 }
 .welcome-form {
   margin-top: 50px;
@@ -28,6 +31,7 @@ body {
 }
 .welcome-form h3 {
   text-align: center;
+  font-family: 'Baloo Bhai', cursive;
 }
 .welcome-buttons {
   margin-top: 20px;
@@ -38,4 +42,8 @@ body {
 .welcome-buttons button {
   margin-left: 10px;
   margin-right: 10px;
+}
+.welcome-warning {
+  color: red;
+  text-align: center;
 }
