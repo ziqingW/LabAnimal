@@ -3,19 +3,28 @@ Even now, the management of experimental animals in lab is still primitive and i
 
 However, with the help of **LAMP**, the management of lab animals can be easy, fast and efficient. The versatility of **LAMP** make the research project progress stably and seamlessly.
 
-## MVP
+## Web Site
+[Lab Animal Management Platform](https://labanimals.herokuapp.com/)
+
+## Usage
+ - Register a new account for the first time
+ - Add animals into the database with various settings
+ - Check or edit the conditions of animals and projects at anytime
+___
+## Developer Notes
+### MVP
 - [X] Create User Login/Sign system
 - [X] A clean and powerful UI
 - [X] User can add, delete or edit animal in cages
 - [X] Implement search function
 - [X] Support records for individual animal's id, DOB, genotype, gender etc.
 
-## Stretch Features
+### Stretch Features
 - [X] Support multiple animal species
 - [X] User can create, delete or edit projects with particular animals in cages
 - [X] User can check the ongoing or historical projects with the animals in group
 - [X] Sorting by animal id, DOB and the other conditions
-- [ ] Statistical summary for total animal numbers, total cost and total projects
+- [X] Statistical summary for total animal numbers, total cost and total projects
 ___
 ### Main Techs
 - Node.js
@@ -37,3 +46,4 @@ Cage/Animal <img src="readmePics/CageAnimalPanel.png" alt="Cage" width="180px"/>
   - In order to make that the updated value in new form-rows can be appropriately displayed, I added the related index and key name of onChanged form for React to locate the children-form which had value changed. Such function was wrapped in componentDidUpdate to make sure the render was at the right time.
 - 08/12 ~ 08/15/2018, created tables for animals by which user can add, edit, delete, sort and search interested animals using react-table.
 - 08/16 ~ 08/17/2018, finished the page for project demonstration, which is a table with sub-table with sub-sub-table.
+- 08/18 ~ 08/20/2018, added customized styles and published project on Heroku.
