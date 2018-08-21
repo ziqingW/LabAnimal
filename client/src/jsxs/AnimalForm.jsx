@@ -352,7 +352,8 @@ export class AnimalForm extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="user-tables">
+        <h3>Add New Animals</h3>
         {this.state.showForm ?
         (<Form>
           <Table striped bordered condensed hover>
@@ -379,16 +380,16 @@ export class AnimalForm extends React.Component {
           </Table>
         </Form>): null}
         {this.animalFormNumberInput()}
-        <HelpBlock>{this.state.warning}</HelpBlock>
-        <Modal show={this.state.modalShow} onHide={this.closeModal}>
+        <HelpBlock className="new-table-warning">{this.state.warning}</HelpBlock>
+        <Modal show={this.state.modalShow} onHide={this.closeModal} className="modal-wrap">
           <Modal.Header closeButton>
-            <Modal.Title>Add New Animals</Modal.Title>
+            <Modal.Title className="submit-new-title">Add New Animals</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="user-modal-body">
             <h3>Are you sure to add these animals?</h3>
-            <div>
-              <Button onClick={this.closeModal}>NO</Button>
-              <Button onClick={this.animalTableSubmit}>YES</Button>
+            <div className="modal-buttons">
+              <Button bsStyle="link" onClick={this.closeModal}>NO</Button>
+              <Button bsStyle="success" onClick={this.animalTableSubmit}>YES</Button>
             </div>
           </Modal.Body>
         </Modal>

@@ -2,10 +2,13 @@
 
 html, body, #root {
   width: 100%;
-  height: 100%;
+  min-height: 800px;
 }
 #root {
   background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .welcome-form-wrap {
   width: 100%;
@@ -50,4 +53,92 @@ html, body, #root {
 .welcome-warning {
   color: red;
   text-align: center;
+  font-size: 16px;
+}
+.content-wrap {
+  width: 90%;
+  height: 100%;
+  min-height: 770px;
+  display: flex;
+  flex-direction: column;
+}
+.navi-wrap {
+  width: 100%;
+}
+.navi-wrap h2{
+  font-family: 'Fredoka One', cursive;
+}
+.navbar-content {
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+.deleteAccountSpan, .deleteAccount-title{
+  color: red;
+}
+.modal-wrap {
+  margin-top: 80px;
+}
+.user-modal-body {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+.user-modal-body h3 {
+  flex-grow: 1;
+}
+.modal-buttons {
+  margin-top: 10px;
+  text-align: right;
+}
+.modal-buttons button {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.user-highcharts {
+  flex-grow: 1;
+}
+.footer {
+  width: 100%;
+  text-align: center;
+  font-family: 'Baloo Bhai', cursive;
+}
+.user-tables {
+  flex-grow: 1;
+}
+.user-tables h3 {
+  margin: 0 0 10px 0;
+  color: #1A73E8;
+}
+.animal-table-buttons-wrap{
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+.animal-table-buttons {
+  display: flex;
+  justify-content: center;
+}
+.animal-table-help {
+  padding: 10px;
+  font-size: 16px;
+  color: red;
+}
+.animal-table-buttons button {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.new-animal-table {
+  flex-grow: 1;
+}
+.new-table-warning {
+  color: red;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+}
+.submit-new-title {
+  color: #1A73E8;
+}
+.aniaml-table-modal-title {
+  color: red;
 }

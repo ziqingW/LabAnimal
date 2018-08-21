@@ -143,7 +143,8 @@ export class ProjectTable extends React.Component {
     }]
     const dataProject = this.makeProjectData()
     return (
-      <div>
+      <div className="user-tables">
+        <h3>Current Projects</h3>
         <ReactTable
           data={dataProject}
           columns={columnsProject} className="-striped -highlight"

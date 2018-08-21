@@ -278,38 +278,42 @@ export class AnimalTable extends React.Component {
       selectType: "checkbox",
     }
     return (this.state.redirect ? <Redirect to="/animals/edit" /> :
-      (<div>
+      (<div className="user-tables">
+        <h3>Current Animals</h3>
         <CheckboxTable ref={r => (this.checkboxTable = r)} data={this.state.data} columns={columns} defaultPageSize={10} style={{
             height: "500px"
           }} noDataText="No records found" filterable className="-striped -highlight" {...checkboxProps} />
-        <div>
-          <Link to="/animals/new"><Button>Add Animal</Button></Link>
-          <Button onClick={this.editAnimal}>Edit</Button>
-          <Button onClick={this.deleteAnimal}>Delete</Button>
-          <Button onClick={this.sacriAnimal}>Sacriface</Button>
+        <div className="animal-table-buttons-wrap">
+          <div className="animal-table-buttons">
+            <Link to="/animals/new"><Button bsStyle="primary">Add Animal</Button></Link>
+            <Button bsStyle="primary" onClick={this.editAnimal}>Edit</Button>
+            <Button bsStyle="danger" onClick={this.deleteAnimal}>Delete</Button>
+            <Button bsStyle="danger" onClick={this.sacriAnimal}>Sacriface</Button>
+          </div>
+          <HelpBlock className="animal-table-help">{this.state.message}</HelpBlock>
         </div>
-        <HelpBlock>{this.state.message}</HelpBlock>
-        <Modal show={this.state.modalShow_del} onHide={this.closeModal}>
+        <br />
+        <Modal show={this.state.modalShow_del} onHide={this.closeModal} className="modal-wrap">
           <Modal.Header closeButton>
-            <Modal.Title>Delete Animals</Modal.Title>
+            <Modal.Title className="aniaml-table-modal-title">Delete Animals</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <h3>Are you sure to delete these animals?</h3>
-            <div>
-              <Button onClick={this.animalDelete}>YES</Button>
-              <Button onClick={this.closeModal}>NO</Button>
+          <Modal.Body className="user-modal-body">
+            <h3>Are you sure to DELETE these animals?</h3>
+            <div className="modal-buttons">
+              <Button bsStyle="link" onClick={this.animalDelete}>YES</Button>
+              <Button bsStyle="primary" onClick={this.closeModal}>NO</Button>
             </div>
           </Modal.Body>
         </Modal>
-        <Modal show={this.state.modalShow_sacri} onHide={this.closeModal}>
+        <Modal show={this.state.modalShow_sacri} onHide={this.closeModal} className="modal-wrap">
           <Modal.Header closeButton>
-            <Modal.Title>Sacriface Animals</Modal.Title>
+            <Modal.Title className="aniaml-table-modal-title">Sacriface Animals</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <h3>Are you sure to sacriface these animals?</h3>
-            <div>
-              <Button onClick={this.animalSacri}>YES</Button>
-              <Button onClick={this.closeModal}>NO</Button>
+          <Modal.Body className="user-modal-body">
+            <h3>Are you sure to SACRIFACE these animals?</h3>
+            <div className="modal-buttons">
+              <Button bsStyle="link" onClick={this.animalSacri}>YES</Button>
+              <Button bsStyle="primary" onClick={this.closeModal}>NO</Button>
             </div>
           </Modal.Body>
         </Modal>

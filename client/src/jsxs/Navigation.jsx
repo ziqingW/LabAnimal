@@ -61,9 +61,9 @@ export class Navigation extends React.Component {
 
   render() {
     return (this.state.redirect ? <Redirect to="/" />
-      :(<div>
+  :(<div className="navi-wrap">
         <h2>Lab Animal Management Platform</h2>
-          <Navbar inverse collapseOnSelect>
+          <Navbar inverse collapseOnSelect className="navbar-content">
             <Navbar.Header>
               <Navbar.Brand>
               </Navbar.Brand>
@@ -83,21 +83,21 @@ export class Navigation extends React.Component {
                 <MenuItem eventKey={4.1} onClick={this.logOff}>Log Off</MenuItem>
                 <MenuItem eventKey={4.2} href="/user/password">Change Password</MenuItem>
                 <MenuItem divider />
-                <MenuItem eventKey={4.3} onClick={this.deleteAccountModal}><b>DELETE ACCOUNT</b></MenuItem>
+                <MenuItem eventKey={4.3} onClick={this.deleteAccountModal}><b><span className="deleteAccountSpan">DELETE ACCOUNT</span></b></MenuItem>
               </NavDropdown>
             </Nav>
             </Navbar.Collapse>
           </Navbar>
-          <Modal show={this.state.modalShow} onHide={this.closeModal}>
+          <Modal className="modal-wrap" show={this.state.modalShow} onHide={this.closeModal}>
             <Modal.Header closeButton>
-              <Modal.Title>DELETE Account</Modal.Title>
+              <Modal.Title className="deleteAccount-title"><b>DELETE ACCOUNT</b></Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="user-modal-body">
               <h3>Are you sure to DELETE your account?</h3>
-              <HelpBlock>Deleted account can't be recovered</HelpBlock>
-              <div>
-                <Button onClick={this.deleteAccount}>YES</Button>
-                <Button onClick={this.closeModal}>NO</Button>
+              <HelpBlock><b>Deleted account can't be recovered</b></HelpBlock>
+              <div className="modal-buttons">
+                <Button bsStyle="link" onClick={this.deleteAccount}>YES</Button>
+                <Button bsStyle="primary" onClick={this.closeModal}>NO</Button>
               </div>
             </Modal.Body>
           </Modal>

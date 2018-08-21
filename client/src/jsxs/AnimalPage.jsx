@@ -6,7 +6,7 @@ import { Footer } from './Footer.jsx'
 export class AnimalPage extends React.Component {
   render () {
     return (
-      <div>
+      <div className="content-wrap">
         <Navigation />
         <AnimalTable />
         <Footer />

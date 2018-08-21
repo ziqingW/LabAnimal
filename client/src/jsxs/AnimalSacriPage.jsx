@@ -69,11 +69,14 @@ export class AnimalSacriPage extends React.Component {
         accessor: 'death_date' // String-based value accessors!
       }]
     return (
-      <div>
+      <div className="content-wrap">
         <Navigation />
-        <ReactTable data={this.state.data} columns={columns} defaultPageSize={10} style={{
+        <div className="user-tables">
+          <h3>Sacrifaced Animals</h3>
+          <ReactTable data={this.state.data} columns={columns} defaultPageSize={10} style={{
         height: "500px"
       }} noDataText="No records found" filterable className="-striped -highlight" />
+        </div>
         <Footer />
       </div>
     )

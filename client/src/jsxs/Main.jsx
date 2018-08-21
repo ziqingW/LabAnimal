@@ -2,6 +2,7 @@ import React from 'react'
 import { Navigation } from './Navigation.jsx'
 import { Footer } from './Footer.jsx'
 import ReactHighcharts from 'react-highcharts'
+import {Col} from 'react-bootstrap'
 import axios from 'axios'
 const clone = require('clone')
 
@@ -226,10 +227,16 @@ export class Main extends React.Component {
         }]
       }
       return (
-          <div>
+          <div className="content-wrap">
           <Navigation />
-          <ReactHighcharts config={config_1}/>
-          <ReactHighcharts config={config_2}/>
+          <div className="user-highcharts">
+            <Col sm={12} md={6}>
+              <ReactHighcharts config={config_1}/>
+            </Col>
+            <Col sm={12} md={6}>
+              <ReactHighcharts config={config_2}/>
+            </Col>
+          </div>
           <Footer />
           </div>
           )
