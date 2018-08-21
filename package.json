@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Even now, the management of experimental animals in lab is still primitive and inefficient in ways from paper recording to Excel forms. These methods are hard to maintain and in short of sustainability. Different recording patterns from different researchers also make the transition painfully.",
   "main": "index.js",
+  "engines": {
+    "npm": "6.2.0",
+    "node": "8.11.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
