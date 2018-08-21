@@ -18,12 +18,9 @@
     "redux": "^4.0.0"
   },
   "scripts": {
-    "dev": "concurrently \"nodemon -x 'npm start'\" \"npm run dev-server\"",
-    "dev-server": "react-scripts start",
-    "start": "babel-node app.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build"
+    "eject": "react-scripts eject"
   }
 }
