@@ -25,7 +25,7 @@ ___
 - [X] User can check the ongoing or historical projects with the animals in group
 - [X] Sorting by animal id, DOB and the other conditions
 - [X] Statistical summary for total animal numbers, total cost and total projects
-___
+
 ### Main Techs
 - Node.js
 - React.js, React-Router, Redux, React-Bootstrap, React-table
