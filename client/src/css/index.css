@@ -31,12 +31,12 @@ html, body, #root {
   text-align: center;
   font-family: 'Fredoka One', cursive;
 }
-.welcome-form {
+.welcome-form, .changePW-form {
   margin-top: 50px;
   width: 90%;
   max-width: 400px;
 }
-.welcome-form h3 {
+.welcome-form h3, .changePW-form h3 {
   text-align: center;
   font-family: 'Baloo Bhai', cursive;
 }
@@ -55,7 +55,7 @@ html, body, #root {
   text-align: center;
   font-size: 16px;
 }
-.content-wrap {
+.content-wrap, .changePW-wrap {
   width: 90%;
   height: 100%;
   min-height: 770px;
@@ -141,4 +141,10 @@ html, body, #root {
 }
 .aniaml-table-modal-title {
   color: red;
+}
+.changePW-wrap {
+  align-items: center;
+}
+.changePW-form {
+  flex-grow: 1;
 }

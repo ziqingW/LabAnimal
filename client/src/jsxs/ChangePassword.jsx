@@ -95,9 +95,9 @@ export class ChangePassword extends React.Component {
 
   render () {
     return ( this.state.redirect ? <Redirect to="/main" /> :
-      (<div>
+      (<div className="changePW-wrap">
       <Navigation />
-      <Form onSubmit={this.changePWSubmit}>
+      <Form onSubmit={this.changePWSubmit} className="changePW-form">
         <h3>Change Password</h3>
         <FormGroup controlId="oldPassword">
           <ControlLabel>Old Password</ControlLabel>
@@ -111,8 +111,8 @@ export class ChangePassword extends React.Component {
           <ControlLabel>Re-Enter New Password</ControlLabel>
           <FormControl type="password" value={this.state.re_newPassword} placeholder="Password can't be shorter than 8 characters" onChange={e => {this.handlerInput("re_newPassword", e)}} />
         </FormGroup>
-        <HelpBlock>{this.state.message}</HelpBlock>
-        <div>
+        <HelpBlock className="welcome-warning">{this.state.message}</HelpBlock>
+        <div className="welcome-buttons">
           <Button bsStyle="success" type="submit">Submit</Button>
         </div>
       </Form>
