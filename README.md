@@ -5,6 +5,8 @@ However, with the help of **LAMP**, the management of lab animals can be easy, f
 
 ## Web Site
 [Lab Animal Management Platform](https://labanimals.herokuapp.com/)
+- Test Account: redtaq
+- Password: 12345677 (Please don't change the Password!)
 
 ## Usage
  - Register a new account for the first time
