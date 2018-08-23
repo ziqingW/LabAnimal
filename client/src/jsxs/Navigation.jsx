@@ -74,7 +74,7 @@ export class Navigation extends React.Component {
               <NavItem eventKey={1} href="/main">Summary</NavItem>
               <NavDropdown eventKey={2} title={"Animals"} id="animal-nav-dropdown">
                 <MenuItem eventKey={2.1} href="/animals">Current Animals</MenuItem>
-                <MenuItem eventKey={2.2} href="/animals/sacrifaced">Sacrifaced Animals</MenuItem>
+                <MenuItem eventKey={2.2} href="/animals/sacrificed">Sacrificed Animals</MenuItem>
               </NavDropdown>
               <NavItem eventKey={3} href="/projects">Projects</NavItem>
             </Nav>

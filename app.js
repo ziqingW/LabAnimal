@@ -226,7 +226,7 @@ app.post("/table/projects", function(req, resp, next) {
     .catch (next)
 })
 
-app.post('/table/sacrifaced', function(req, resp, next) {
+app.post('/table/sacrificed', function(req, resp, next) {
   let userId = req.body.userId
   let q = "SELECT * FROM sacrifaced_animal WHERE user_id=${userId}"
   db.query(q, {userId: userId})

@@ -20,7 +20,7 @@ export class AnimalSacriPage extends React.Component {
 
   getData = () => {
     let userId = JSON.parse(sessionStorage.getItem("userInfo")).userId
-    axios.post("/table/sacrifaced", {userId: userId})
+    axios.post("/table/sacrificed", {userId: userId})
       .then(results => {
         let data = clone(results.data.data)
         data.forEach(animal => {
@@ -72,7 +72,7 @@ export class AnimalSacriPage extends React.Component {
       <div className="content-wrap">
         <Navigation />
         <div className="user-tables">
-          <h3>Sacrifaced Animals</h3>
+          <h3>Sacrificed Animals</h3>
           <ReactTable data={this.state.data} columns={columns} defaultPageSize={10} style={{
         height: "500px"
       }} noDataText="No records found" filterable className="-striped -highlight" />

@@ -22,7 +22,7 @@ class App extends React.Component{
             <Route path="/main" component={Main} />
             <Route exact path="/projects" component={ProjectPage} />
             <Route exact path="/animals" component={AnimalPage} />
-            <Route exact path="/animals/sacrifaced" component={AnimalSacriPage} />
+            <Route exact path="/animals/sacrificed" component={AnimalSacriPage} />
             <Route exact path="/animals/new" component={AnimalNew} />
             <Route exact path="/animals/edit" component={AnimalEdit} />
           </Switch>
