@@ -208,7 +208,9 @@ export class AnimalEdit extends React.Component {
     return (this.state.redirect ? <Redirect to="/animals" /> :
       (<div className="content-wrap">
         <Navigation />
-        <Table striped bordered condensed hover className="user-tables">
+        <div className="user-tables">
+          <h3>Edit Animals</h3>
+        <Table striped bordered condensed hover>
           <thead>
             <tr>
               <th>*Cage #</th>
@@ -237,6 +239,7 @@ export class AnimalEdit extends React.Component {
           </div>
           <HelpBlock className="animal-table-help">{this.state.message}</HelpBlock>
         </div>
+      </div>
         <Footer />
       </div>)
     )
