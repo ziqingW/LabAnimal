@@ -232,13 +232,10 @@ export class AnimalEdit extends React.Component {
         </Table>
         <div className="animal-table-buttons-wrap">
           <div className="animal-table-buttons">
-            <Link to="/animals"><Button>Cancel</Button></Link>
-            <Button onClick={this.editAnimals}>OK</Button>
+            <Link to="/animals"><Button bsStyle="link">Cancel</Button></Link>
+            <Button bsStyle="primary" onClick={this.editAnimals}>OK</Button>
           </div>
-          <div className="animal-table-help">
-            <HelpBlock>Column with * can't be left blank</HelpBlock>
-            <HelpBlock>{this.state.message}</HelpBlock>
-          </div>
+          <HelpBlock className="animal-table-help">{this.state.message}</HelpBlock>
         </div>
         <Footer />
       </div>)
