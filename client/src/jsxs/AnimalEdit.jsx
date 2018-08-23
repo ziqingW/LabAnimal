@@ -206,9 +206,9 @@ export class AnimalEdit extends React.Component {
 
   render () {
     return (this.state.redirect ? <Redirect to="/animals" /> :
-      (<div>
+      (<div className="content-wrap">
         <Navigation />
-        <Table striped bordered condensed hover>
+        <Table striped bordered condensed hover className="user-tables">
           <thead>
             <tr>
               <th>*Cage #</th>
@@ -230,13 +230,15 @@ export class AnimalEdit extends React.Component {
             })}
           </tbody>
         </Table>
-        <div>
-          <Link to="/animals"><Button>Cancel</Button></Link>
-          <Button onClick={this.editAnimals}>OK</Button>
-        </div>
-        <div>
-          <HelpBlock>Column with * can't be left blank</HelpBlock>
-          <HelpBlock>{this.state.message}</HelpBlock>
+        <div className="animal-table-buttons-wrap">
+          <div className="animal-table-buttons">
+            <Link to="/animals"><Button>Cancel</Button></Link>
+            <Button onClick={this.editAnimals}>OK</Button>
+          </div>
+          <div className="animal-table-help">
+            <HelpBlock>Column with * can't be left blank</HelpBlock>
+            <HelpBlock>{this.state.message}</HelpBlock>
+          </div>
         </div>
         <Footer />
       </div>)
