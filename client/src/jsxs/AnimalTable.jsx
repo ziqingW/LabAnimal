@@ -191,9 +191,15 @@ export class AnimalTable extends React.Component {
   }
 
   sacriAnimal = () => {
-    this.setState({
-      modalShow_sacri : true
+    if (this.state.selection.length > 0) {
+      this.setState({
+        modalShow_sacri : true
     })
+  } else {
+      this.setState({
+        message : "Select animals first"
+      })
+    }
   }
 
   animalSacri = () => {
@@ -222,7 +228,7 @@ export class AnimalTable extends React.Component {
         this.setState({
           data : currentData,
           modalShow_sacri : false,
-          message : "Selected animals were sacrifaced"
+          message : "Selected animals were sacrificed"
         })
       })
       .catch (err => {
@@ -288,7 +294,7 @@ export class AnimalTable extends React.Component {
             <Link to="/animals/new"><Button bsStyle="primary">Add Animal</Button></Link>
             <Button bsStyle="primary" onClick={this.editAnimal}>Edit</Button>
             <Button bsStyle="danger" onClick={this.deleteAnimal}>Delete</Button>
-            <Button bsStyle="danger" onClick={this.sacriAnimal}>Sacriface</Button>
+            <Button bsStyle="danger" onClick={this.sacriAnimal}>Sacrifice</Button>
           </div>
           <HelpBlock className="animal-table-help">{this.state.message}</HelpBlock>
         </div>
@@ -307,10 +313,10 @@ export class AnimalTable extends React.Component {
         </Modal>
         <Modal show={this.state.modalShow_sacri} onHide={this.closeModal} className="modal-wrap">
           <Modal.Header closeButton>
-            <Modal.Title className="aniaml-table-modal-title">Sacriface Animals</Modal.Title>
+            <Modal.Title className="aniaml-table-modal-title">Sacrifice Animals</Modal.Title>
           </Modal.Header>
           <Modal.Body className="user-modal-body">
-            <h3>Are you sure to SACRIFACE these animals?</h3>
+            <h3>Are you sure to SACRIFICE these animals?</h3>
             <div className="modal-buttons">
               <Button bsStyle="link" onClick={this.animalSacri}>YES</Button>
               <Button bsStyle="primary" onClick={this.closeModal}>NO</Button>
