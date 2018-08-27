@@ -54,3 +54,4 @@ Cage/Animal <img src="readmePics/CageAnimalPanel.png" alt="Cage" width="180px"/>
 
 #### LAMP 2.0
 - 08/27/2018, I wanted to design a method to implement the function of 'import/export' with .csv file. The major difficulty was to make the headers of excel match the columns of table correctly both in order and content. Finally, I decided to create a selection panel for users to pick columns in the same order as in the excel. 
+Concept <img src="readmePics/tagSelection.png" alt="tag Selection" width="180px"/>
