@@ -35,6 +35,7 @@ ___
 - PostgreSQL
 
 ### Project Logs
+#### LAMP 1.0
 - 08/06/2018, created repository and README
 - 08/07/2018
   - created user login/sign system  
@@ -50,3 +51,6 @@ Cage/Animal <img src="readmePics/CageAnimalPanel.png" alt="Cage" width="180px"/>
 - 08/12 ~ 08/15/2018, created tables for animals by which user can add, edit, delete, sort and search interested animals using react-table.
 - 08/16 ~ 08/17/2018, finished the page for project demonstration, which is a table with sub-table with sub-sub-table.
 - 08/18 ~ 08/20/2018, added customized styles and published project on Heroku.
+
+#### LAMP 2.0
+- 08/27/2018, I wanted to design a method to implement the function of 'import/export' with .csv file. The major difficulty was to make the headers of excel match the columns of table correctly both in order and content. Finally, I decided to create a selection panel for users to pick columns in the same order as in the excel. 
