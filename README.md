@@ -27,6 +27,7 @@ ___
 - [X] User can check the ongoing or historical projects with the animals in group
 - [X] Sorting by animal id, DOB and the other conditions
 - [X] Statistical summary for total animal numbers, total cost and total projects
+- [ ] User can import data form Excel .csv file or export data as .csv file
 
 ### Main Techs
 - Node.js
