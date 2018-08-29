@@ -5,7 +5,8 @@ var initialState = {
   userId: 0,
   species: "",
   editAnimals : [],
-  selectedHeaders : []
+  selectedHeaders : [],
+  headerPass : false
 }
 
 export function labAnimal (state, action) {
@@ -29,6 +30,11 @@ export function labAnimal (state, action) {
       new_state = clone(state)
       let selectedHeaders = action.data
       new_state.selectedHeaders = selectedHeaders
+      return new_state
+    case 'CHECK_HEADERS':
+      new_state = clone(state)
+      let headerPass = action.data
+      new_state.headerPass = headerPass
       return new_state
     default:
       return state

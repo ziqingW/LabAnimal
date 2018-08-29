@@ -16,3 +16,9 @@ export function getSelectedHeaders(data) {
     data : data
   }
 }
+export function headerCheck(data) {
+  return {
+    type: "CHECK_HEADERS",
+    data : data
+  }
+}

@@ -136,7 +136,7 @@ html, body, #root {
   text-align: center;
   font-size: 16px;
 }
-.submit-new-title {
+.submit-new-title, .import-title {
   color: #1A73E8;
 }
 .aniaml-table-modal-title {
@@ -147,4 +147,20 @@ html, body, #root {
 }
 .changePW-form {
   flex-grow: 1;
+}
+.import-span {
+  color: red;
+}
+.header-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.header-wrap button {
+  margin: 4px;
+}
+.import-success {
+  color : #54a82a;
+}
+.import-fail {
+  color : #666;
 }

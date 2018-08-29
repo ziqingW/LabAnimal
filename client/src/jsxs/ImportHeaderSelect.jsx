@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-import { getSelectedHeaders } from '../actions.js'
+import { getSelectedHeaders, headerCheck } from '../actions.js'
 import { connect } from 'react-redux'
 const clone = require('clone')
 
@@ -21,7 +21,7 @@ export class ImportHeaderSelect extends React.Component {
 
   upperPanel = () => {
     return (
-      <div>
+      <div className="header-wrap">
         {this.state.headers.map((header,i) => {
           return (<div key={i}>{this.upperOptions(header)}</div>)
         })}
@@ -31,7 +31,7 @@ export class ImportHeaderSelect extends React.Component {
 
   lowerPanel = () => {
     return(
-      <div>
+      <div className="header-wrap">
         {this.state.selectedHeaders.map((header,i) => {
           return (<div key={i}>{this.lowerOptions(header)}</div>)
         })}
@@ -47,7 +47,7 @@ export class ImportHeaderSelect extends React.Component {
 
   lowerOptions = tag => {
     return (
-      <Button bsStyle="warning" onClick={e=>{this.selectOption(e,tag)}}>{tag}</Button>
+      <Button onClick={e=>{this.selectOption(e,tag)}}>{tag}</Button>
     )
   }
 
@@ -61,6 +61,15 @@ export class ImportHeaderSelect extends React.Component {
       let index = selectedHeaders.indexOf(tag)
       selectedHeaders.splice(index,1)
     }
+    let headerCheck = {'tag': false, 'gender': false, 'birthday': false, 'genotype': false, 'cage_number': false, 'strain': false}
+    selectedHeaders.forEach(header => {
+      headerCheck[header] = true
+    })
+    if (Object.values(headerCheck).indexOf(false) > -1) {
+      this.props.headerCheck(false)
+    } else {
+      this.props.headerCheck(true)
+    }
     this.props.getSelectedHeaders(selectedHeaders)
     this.setState({
       headersClicked : clone(headersClicked),
@@ -72,7 +81,9 @@ export class ImportHeaderSelect extends React.Component {
     return (
       <div>
       {this.upperPanel()}
+      <hr />
       {this.lowerPanel()}
+      <br />
       </div>
     )
   }
@@ -81,7 +92,10 @@ export class ImportHeaderSelect extends React.Component {
 function mapDispatchToProps(dispatch) {
     return {
         getSelectedHeaders: function(data) {
-            dispatch(getSelectedHeaders(data))
+          dispatch(getSelectedHeaders(data))
+        },
+        headerCheck: function(data) {
+          dispatch(headerCheck(data))
         }
     }
 }

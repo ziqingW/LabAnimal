@@ -200,20 +200,6 @@ app.post("/submit/editanimals", function(req, resp, next) {
   })
 })
 
-app.post("/submit/import", function(req, resp, next){
-  let selectedHeaders = clone(req.body.selectedHeaders)
-  let headerCheck = {'tag': false, 'gender': false, 'birthday': false, 'genotype': false, 'cage_number': false, 'strain': false}
-  selectedHeaders.forEach(header => {
-    headerCheck[header] = true
-  })
-  let answer = Object.values(headerCheck).indexOf(false)
-  if (Object.values(headerCheck).indexOf(false) > -1) {
-    resp.json({message: "Must select all columns with *!"})
-  } else {
-    resp.json({message: "OK"})
-  }
-})
-
 app.post("/table/animals", function(req,resp,next) {
   let userId = req.body.userId
   let q = "SELECT * FROM animals WHERE user_id=${userId}"
