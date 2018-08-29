@@ -4,7 +4,8 @@ var initialState = {
   username: '',
   userId: 0,
   species: "",
-  editAnimals : []
+  editAnimals : [],
+  selectedHeaders : []
 }
 
 export function labAnimal (state, action) {
@@ -23,6 +24,11 @@ export function labAnimal (state, action) {
       new_state = clone(state)
       let editAnimals = action.data
       new_state.editAnimals = editAnimals
+      return new_state
+    case 'GET_HEADERS':
+      new_state = clone(state)
+      let selectedHeaders = action.data
+      new_state.selectedHeaders = selectedHeaders
       return new_state
     default:
       return state

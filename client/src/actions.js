@@ -10,3 +10,9 @@ export function getAnimals(data) {
     data : data
   }
 }
+export function getSelectedHeaders(data) {
+  return {
+    type: "GET_HEADERS",
+    data : data
+  }
+}

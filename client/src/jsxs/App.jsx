@@ -10,6 +10,7 @@ import { AnimalNew } from './AnimalNew.jsx'
 import { AnimalEdit } from './AnimalEdit.jsx'
 import { ChangePassword } from './ChangePassword.jsx'
 import { AnimalSacriPage } from './AnimalSacriPage.jsx'
+import { ImportExcel } from './ImportExcel.jsx'
 
 class App extends React.Component{
   render () {
@@ -25,6 +26,7 @@ class App extends React.Component{
             <Route exact path="/animals/sacrificed" component={AnimalSacriPage} />
             <Route exact path="/animals/new" component={AnimalNew} />
             <Route exact path="/animals/edit" component={AnimalEdit} />
+            <Route exact path="/test/test" component={ImportExcel} />
           </Switch>
         </Provider>
       </BrowserRouter>
