@@ -8,7 +8,7 @@ export class ImportHeaderSelect extends React.Component {
   constructor (props) {
     super (props)
     let headersClicked = {}
-    let headers = ['tag', 'gender', 'dob', 'genotype', 'project', 'cage_number', 'species', 'comments', 'age']
+    let headers = ['tag', 'gender', 'birthday', 'genotype', 'project', 'cage_number', 'species', 'comments', 'strain']
     headers.forEach(header => {
       headersClicked[header] = false
     })
@@ -41,7 +41,7 @@ export class ImportHeaderSelect extends React.Component {
 
   upperOptions = tag => {
     return (
-      <Button bsStyle={this.state.headersClicked[tag] ? "warning" : "default"} onClick={e=>{this.selectOption(e,tag)}}>{tag}</Button>
+      <Button bsStyle={this.state.headersClicked[tag] ? "warning" : "default"} onClick={e=>{this.selectOption(e,tag)}}>{(tag === 'tag' || tag === 'gender' || tag === 'birthday' || tag === 'genotype' || tag ==='cage_number' || tag === 'strain')? ('*' + tag): tag}</Button>
     )
   }
 
