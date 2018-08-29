@@ -62,7 +62,7 @@ export class ImportExcel extends React.Component {
         <Button onClick={this.showSelectModal}>Import</Button>
         <Modal show={this.state.selectModalShow} onHide={this.closeModal} className="modal-wrap">
           <Modal.Header closeButton>
-            <Modal.Title className="import-title"><b>Select Excel Columns</b></Modal.Title>
+            <Modal.Title className="import-title"><b>Import Excel</b></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <HelpBlock><b>Before importing, select the columns in the <span className="import-span">SAME</span> order as them in the Excel file (very important!)</b></HelpBlock>
