@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { ImportHeaderSelect } from './ImportHeaderSelect.jsx'
+import { getSelectedHeaders, headerCheck } from '../actions.js' 
 import { Button, Modal, HelpBlock, FormGroup, FormControl } from 'react-bootstrap'
 import axios from 'axios'
 const clone = require('clone')
@@ -25,8 +26,13 @@ export class ImportExcel extends React.Component {
   }
 
   closeModal = () => {
+    this.props.getSelectedHeaders([])
+    this.props.headerCheck(false)
     this.setState({
-      selectModalShow : false
+      selectModalShow : false,
+      message : "",
+      filePath : "",
+      pathPass : false
     })
   }
   
@@ -66,7 +72,7 @@ export class ImportExcel extends React.Component {
             <h5 className="import-fail">{this.state.pathPass ? "" : "Only .csv file can be imported"}</h5>
             {(this.props.headerPass && this.state.pathPass) ? <h5 className="import-success">Ready for import</h5> : ""}
             <FormGroup controlId="importExcel">
-                <FormControl type="file" onChange={this.findExcelPath}/>
+                <FormControl type="file" onChange={this.findExcelPath} />
             </FormGroup>
             <div className="modal-buttons">
               <Button bsStyle="link" onClick={this.closeModal}>Cancel</Button>
@@ -86,4 +92,15 @@ function mapStateToProps(state) {
     }
 }
 
-ImportExcel = connect(mapStateToProps)(ImportExcel)
+function mapDispatchToProps(dispatch) {
+    return {
+        getSelectedHeaders: function(data) {
+          dispatch(getSelectedHeaders(data))
+        },
+        headerCheck: function(data) {
+          dispatch(headerCheck(data))
+        }
+    }
+}
+
+ImportExcel = connect(mapStateToProps, mapDispatchToProps)(ImportExcel)
